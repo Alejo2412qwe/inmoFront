@@ -1,0 +1,14 @@
+<div class="logo">
+    <img src="https://cdn.vistahost.com.br/imoveisp13641/vista.imobi/fotos/ibl_13641_5a09edebc2467.jpg" alt="">
+</div>
+<div class="login-page">
+    <div class="form">
+        <form class="login-form" (ngSubmit)="logIn()">
+            <input type="text" placeholder="Usuario" name="usuario" [(ngModel)]="loginRequest.usuNombreUsuario"
+                required />
+            <input type="password" placeholder="Password" name="password" [(ngModel)]="loginRequest.usuContrasena"
+                required />
+            <button type="submit">login</button>
+        </form>
+    </div>
+</div>
