@@ -14,6 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { TokenExpirationInterceptor } from './enviroment/TokenExpirationInterceptor';
 import { NavComponent } from './modules/nav/nav.component';
+import { ButtomMenuComponent } from './components/buttom-menu/buttom-menu.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NavComponent } from './modules/nav/nav.component';
     LoginComponent,
     UsuariosComponent,
     CadastroComponent,
-    NavComponent
+    NavComponent,
+    ButtomMenuComponent
   ],
   imports: [
     BrowserModule,

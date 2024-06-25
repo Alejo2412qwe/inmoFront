@@ -1,0 +1,111 @@
+.fab-options li a {
+    text-decoration: none;
+}
+
+.fab-container {
+    position: fixed;
+    bottom: 50px;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.fab-icon-holder {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background: #e82b00;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    -webkit-animation: come-in 0.2s forwards 0.2s;
+    animation: come-in 0.2s forwards 0.2s;
+    box-shadow: 0 10px 25px #e82b00;
+    -webkit-transform: translatey(5px);
+    transform: translatey(5px);
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.fab-icon-holder {
+    background: px;
+}
+
+
+.fab-icon-holder:hover {
+    opacity: 0.8;
+}
+
+.fab-icon-holder i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    font-size: 25px;
+    color: #ffffff;
+    -webkit-animation: come-in 0.4s forwards 0.4s;
+    animation: come-in 0.4s forwards 0.4s;
+}
+
+ul.fab-options li:nth-child(1) .fab-icon-holder {
+    background: #e82b00;
+}
+
+ul.fab-options li:nth-child(3) .fab-icon-holder {
+    background: #4CAF50;
+}
+
+ul.fab-options li:nth-child(4) .fab-icon-holder {
+    background: #FF9800;
+}
+
+
+
+.fab {
+    width: 60px;
+    height: 60px;
+    background: #e82b00;
+}
+
+.fab-options {
+    list-style-type: none;
+    margin: 0;
+
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+
+    opacity: 0;
+
+    transition: all 0.3s ease;
+    transform: scale(0);
+    transform-origin: 85% bottom;
+
+}
+
+.fab:hover+.fab-options,
+.fab-options:hover {
+    opacity: 1;
+    transform: scale(1);
+
+}
+
+.fab-options li {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+}
+
+.fab-label {
+    padding: 2px 5px;
+    align-self: center;
+    user-select: none;
+    white-space: nowrap;
+    border-radius: 3px;
+    font-size: 16px;
+    background: #A4A4A4;
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    margin-right: 10px;
+    -webkit-animation: come-in 0.4s forwards 0.6s;
+    animation: come-in 0.4s forwards 0.6s;
+}
