@@ -1,0 +1,29 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<!--buttom-->
+<div class="fab-container">
+    <div class="fab fab-icon-holder">
+        <i class="fas fa-plus"></i>
+    </div>
+    <ul class="fab-options">
+        <li>
+            <span class="fab-label">Logout</span>
+            <div class="fab-icon-holder">
+                <a href="javascript:void(0);" (click)="salir()"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </li>
+        <li *ngIf="currentRoute !== '/nav'">
+            <span class="fab-label">Voltar ao menu principal</span>
+            <div class="fab-icon-holder">
+                <a [routerLink]="['/nav']"><i class="fas fa-arrow-left"></i></a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
