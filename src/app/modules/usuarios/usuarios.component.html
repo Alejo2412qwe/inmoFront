@@ -1,2 +1,22 @@
-<p>usuarios works!</p>
+<table>
+    <thead>
+        <tr>
+            <th>Foto</th>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr key={key} *ngFor="let user of listaUsuarios | paginate: { itemsPerPage: 3, currentPage: page }">
+            <td>{{user.foto}}</td>
+            <td>{{user.usuPerId.perCedula}}</td>
+            <td>{{user.usuPerId.perNombre}}</td>
+            <td>{{user.usuPerId.perApellido}}</td>
+        </tr>
+    </tbody>
+</table>
+<div style="position: fixed; top: 80%; left: 50%; transform: translateX(-50%);">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Antigo" nextLabel="Seguindo"></pagination-controls>
+</div>
 <app-buttom-menu></app-buttom-menu>

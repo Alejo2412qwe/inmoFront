@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { TokenExpirationInterceptor } from './enviroment/TokenExpirationInterceptor';
 import { NavComponent } from './modules/nav/nav.component';
 import { ButtomMenuComponent } from './components/buttom-menu/buttom-menu.component';
+import { AlugueisComponent } from './modules/alugueis/alugueis.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ButtomMenuComponent } from './components/buttom-menu/buttom-menu.compon
     UsuariosComponent,
     CadastroComponent,
     NavComponent,
-    ButtomMenuComponent
+    ButtomMenuComponent,
+    AlugueisComponent
   ],
   imports: [
     BrowserModule,
