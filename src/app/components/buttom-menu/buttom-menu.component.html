@@ -11,15 +11,22 @@
     </div>
     <ul class="fab-options">
         <li *ngIf="currentRoute == '/usuarios' || currentRoute == '/alugueis'">
-            <span class="fab-label">{{currentRoute=='/usuarios' ? 'Adicionar Usuário':'Adicionar Aluguel'}}</span>
+            <span class="fab-label">{{currentRoute=='/usuarios' ? 'Adicionar Usuário' : 'Adicionar Aluguel'}}</span>
             <div class="fab-icon-holder">
-                <a [routerLink]="['/nav']"><i class="fas fa-plus"></i></a>
+                <a [routerLink]="[currentRoute == '/usuarios' ? '/cadUsuarios' : '/cadastro']"><i
+                        class="fas fa-plus"></i></a>
             </div>
         </li>
-        <li *ngIf="currentRoute !== '/nav'">
+        <li *ngIf="currentRoute == '/usuarios' || currentRoute == '/alugueis'">
             <span class="fab-label">Voltar ao menu principal</span>
             <div class="fab-icon-holder">
                 <a [routerLink]="['/nav']"><i class="fas fa-arrow-left"></i></a>
+            </div>
+        </li>
+        <li *ngIf="currentRoute == '/cadUsuarios' || currentRoute == '/cadastro'">
+            <span class="fab-label">voltar atrás</span>
+            <div class="fab-icon-holder">
+                <a (click)="goBack()"><i class="fas fa-arrow-left"></i></a>
             </div>
         </li>
         <li>

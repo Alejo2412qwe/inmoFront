@@ -16,6 +16,7 @@ import { TokenExpirationInterceptor } from './enviroment/TokenExpirationIntercep
 import { NavComponent } from './modules/nav/nav.component';
 import { ButtomMenuComponent } from './components/buttom-menu/buttom-menu.component';
 import { AlugueisComponent } from './modules/alugueis/alugueis.component';
+import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AlugueisComponent } from './modules/alugueis/alugueis.component';
     CadastroComponent,
     NavComponent,
     ButtomMenuComponent,
-    AlugueisComponent
+    AlugueisComponent,
+    CadUsuarioComponent
   ],
   imports: [
     BrowserModule,

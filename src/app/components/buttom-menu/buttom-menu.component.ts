@@ -30,4 +30,8 @@ export class ButtomMenuComponent {
   cerrarSesion(): void {
     localStorage.removeItem('userData');
   }
+
+  goBack(): void {
+    window.history.back();
+  }
 }

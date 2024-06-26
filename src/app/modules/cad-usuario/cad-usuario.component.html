@@ -1,0 +1,44 @@
+<body>
+    <!-- ENVIA A LA BASE DE DATOS -->
+    <form action="registro.php" method="POST">
+        <div id="formulario">
+            <h1> FORMULARIO </h1>
+        </div>
+
+        <div id="tabla-formulario">
+            <label for="nombre">CPF</label>
+            <input placeholder="Por exemplo: 12345678900" name="fcpf" type="text" id="tabla">
+
+            <label for="nombre">Nome (*)</label>
+            <input placeholder="Digite o nome..." name="fnombre" type="text" id="tabla">
+
+            <label for="apellido">Sobrenomes (*)</label>
+            <input placeholder="Digite o sobrenome..." name="fapellido" type="text" id="tabla">
+
+            <label for="correo">E-mail (*) </label>
+            <input placeholder="Digite o email..." name="femail" type="text" id="tabla">
+
+            <label for="correo">Endereço (*) </label>
+            <input placeholder="Digite o endereço..." name="femail" type="text" id="tabla">
+
+            <label for="fecha">Data De Nascimento (*) </label>
+            <input name="ffechanacimiento" type="date" id="tabla">
+
+            <label for="genero">Função (*)</label>
+            <select name="froles" [(ngModel)]="Usuario.rolId.rolId" [disabled]="rol != 'Administrador'" id="tabla">
+                <option [disabled]="true" value="0">Selecione a função</option>
+                <option *ngFor="let rol of listaRoles" [value]="rol.rolId">
+                    {{ rol.rolNombre }}
+                </option>
+            </select>
+
+            <label for="contra">Contraseña</label>
+            <input placeholder="Escriba contraseña" name="fpassword" type="password" id="tabla">
+        </div>
+        <button name="registro" type="submit" id="button"> ¡Registrarse! </button>
+    </form>
+</body>
+
+
+<!--buttom-->
+<app-buttom-menu></app-buttom-menu>
