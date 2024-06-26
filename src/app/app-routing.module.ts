@@ -5,6 +5,7 @@ import { UsuariosComponent } from './modules/usuarios/usuarios.component';
 import { AuthGuard } from './guard/auth.guard';
 import { CadastroComponent } from './modules/cadastro/cadastro.component';
 import { NavComponent } from './modules/nav/nav.component';
+import { AlugueisComponent } from './modules/alugueis/alugueis.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,7 +13,7 @@ const routes: Routes = [
   {
     path: 'usuarios', component: UsuariosComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Usuario'] }
+    data: { expectedRoles: ['Administrador'] }
   },
   {
     path: 'cadastro',
@@ -23,6 +24,11 @@ const routes: Routes = [
   {
     path: 'nav',
     component: NavComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador', 'Usuario'] }
+  },
+  {
+    path: 'alugueis', component: AlugueisComponent,
     canActivate: [AuthGuard],
     data: { expectedRoles: ['Administrador', 'Usuario'] }
   },

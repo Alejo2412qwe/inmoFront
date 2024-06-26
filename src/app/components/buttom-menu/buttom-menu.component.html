@@ -7,19 +7,25 @@
 <!--buttom-->
 <div class="fab-container">
     <div class="fab fab-icon-holder">
-        <i class="fas fa-plus"></i>
+        <i class="fas fa-arrow-up"></i>
     </div>
     <ul class="fab-options">
-        <li>
-            <span class="fab-label">Logout</span>
+        <li *ngIf="currentRoute == '/usuarios' || currentRoute == '/alugueis'">
+            <span class="fab-label">{{currentRoute=='/usuarios' ? 'Adicionar Usuário':'Adicionar Aluguel'}}</span>
             <div class="fab-icon-holder">
-                <a href="javascript:void(0);" (click)="salir()"><i class="fas fa-sign-out-alt"></i></a>
+                <a [routerLink]="['/nav']"><i class="fas fa-plus"></i></a>
             </div>
         </li>
         <li *ngIf="currentRoute !== '/nav'">
             <span class="fab-label">Voltar ao menu principal</span>
             <div class="fab-icon-holder">
                 <a [routerLink]="['/nav']"><i class="fas fa-arrow-left"></i></a>
+            </div>
+        </li>
+        <li>
+            <span class="fab-label">Logout</span>
+            <div class="fab-icon-holder">
+                <a (click)="salir()"><i class="fas fa-sign-out-alt"></i></a>
             </div>
         </li>
     </ul>
