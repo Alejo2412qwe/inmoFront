@@ -3,16 +3,24 @@
         <tr>
             <th>Foto</th>
             <th>CPF</th>
-            <th>Nome</th>
-            <th>Sobrenome</th>
+            <th>Nome Completo</th>
+            <th>Telefone</th>
+            <th>Função</th>
         </tr>
     </thead>
     <tbody>
         <tr key={key} *ngFor="let user of listaUsuarios | paginate: { itemsPerPage: 3, currentPage: page }">
-            <td>{{user.foto}}</td>
+            <td style="display: flex; align-items: center; justify-content: center;">
+                <section class="imgSection">
+                    <div class="fotoUser">
+                        <img [src]="user.foto || userImg" alt="Foto" style="width: 65px" />
+                    </div>
+                </section>
+            </td>
             <td>{{user.usuPerId.perCedula}}</td>
-            <td>{{user.usuPerId.perNombre}}</td>
-            <td>{{user.usuPerId.perApellido}}</td>
+            <td>{{user.usuPerId.perNombre + ' '+user.usuPerId.perApellido}}</td>
+            <td>{{'+55 '+user.usuPerId.perTelefono}}</td>
+            <td>{{user.rolId.rolNombre}}</td>
         </tr>
     </tbody>
 </table>
