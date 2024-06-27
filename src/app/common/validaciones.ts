@@ -59,42 +59,26 @@ export function validarCorreo(correo: string): boolean {
   return regexCorreo.test(correo);
 }
 
-export function validarCedula(cedula: string): boolean {
-  //Verificar si la cédula tiene 10 dígitos numéricos
-  if (!/^\d{10}$/.test(cedula)) {
-    return false;
-  }
+export function validarCPF(strCPF: string): boolean {
+  var i = 0
+  var Soma;
+  var Resto;
+  Soma = 0;
+  if (strCPF == "00000000000") return false;
 
-  // Obtener los dígitos de la cédula como números
-  const digitos = cedula.split('').map(Number);
+  for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+  Resto = (Soma * 10) % 11;
 
-  // Extraer los dígitos en posiciones pares e impares
-  const pares = [digitos[1], digitos[3], digitos[5], digitos[7]];
-  const impares = [digitos[0], digitos[2], digitos[4], digitos[6], digitos[8]];
+  if ((Resto == 10) || (Resto == 11)) Resto = 0;
+  if (Resto != parseInt(strCPF.substring(9, 10))) return false;
 
-  // Multiplicar los dígitos en posiciones impares por 2 y restar nueve si el resultado es mayor a nueve
-  for (let i = 0; i < impares.length; i++) {
-    impares[i] *= 2;
-    if (impares[i] > 9) {
-      impares[i] -= 9;
-    }
-  }
+  Soma = 0;
+  for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+  Resto = (Soma * 10) % 11;
 
-  // Sumar los dígitos en posiciones pares y los resultados de las operaciones en posiciones impares
-  const sumaImpares = impares.reduce((sum, digit) => sum + digit, 0);
-  const sumaPares = pares.reduce((sum, digit) => sum + digit, 0);
-
-  // Calcular el total de la suma
-  const totalSuma = sumaImpares + sumaPares;
-
-  // Obtener el módulo 10 de la suma total
-  const modulo = totalSuma % 10;
-
-  // Calcular el dígito verificador
-  const digitoVerificador = modulo === 0 ? 0 : 10 - modulo;
-
-  // Comparar el dígito verificador calculado con el último dígito de la cédula
-  return digitoVerificador === digitos[9];
+  if ((Resto == 10) || (Resto == 11)) Resto = 0;
+  if (Resto != parseInt(strCPF.substring(10, 11))) return false;
+  return true;
 }
 
 export function calcularEdad(edadUsuario: Date): number {

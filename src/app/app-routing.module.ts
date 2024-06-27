@@ -6,10 +6,16 @@ import { AuthGuard } from './guard/auth.guard';
 import { CadastroComponent } from './modules/cadastro/cadastro.component';
 import { NavComponent } from './modules/nav/nav.component';
 import { AlugueisComponent } from './modules/alugueis/alugueis.component';
+import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'cadUsuarios', component: CadUsuarioComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador'] }
+  },
   {
     path: 'usuarios', component: UsuariosComponent,
     canActivate: [AuthGuard],

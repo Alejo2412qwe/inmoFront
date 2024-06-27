@@ -1,2 +1,58 @@
-<p>cadastro works!</p>
+<body>
+    <form>
+        <div id="formulario">
+            <h1> CADASTRO DE ALUGUEL </h1>
+        </div>
+
+        <div id="tabla-formulario">
+
+            <label for="endereço">Endereço do inmovel(*)</label>
+            <input placeholder="Digite o endereço..." name="fendereco" type="text" id="tabla"
+                [(ngModel)]="aluguel.aluEndereco">
+
+            <label for="prop">Proprietário do inmovel (*)</label>
+            <select name="fprop" [(ngModel)]="aluguel.aluPropietario" id="tabla">
+                <option [disabled]="true" value="0">Selecione a função</option>
+                <option *ngFor="let prop of listPropietarios" [value]="prop.usuId">
+                    {{ prop.usuPerId.perNombre+' '+prop.usuPerId.perApellido }}
+                </option>
+            </select>
+
+            <label for="sobrenome">Inquilino que está alugando (*)</label>
+            <select name="fprop" [(ngModel)]="aluguel.aluInquilino" id="tabla">
+                <option [disabled]="true" value="0">Selecione a função</option>
+                <option *ngFor="let prop of listInquilinos" [value]="prop.usuId">
+                    {{ prop.usuPerId.perNombre+' '+prop.usuPerId.perApellido }}
+                </option>
+            </select>
+
+            <label for="email">Expiração (*) </label>
+            <input name="ffatanasc" type="date" id="tabla" [(ngModel)]="aluguel.aluExpiracao">
+
+            <label for="fotoEntrada">Foto De Historial De Entrada (*)</label>
+            <div class="upload-wrapper">
+                <input type="file" name="uploadEntrada" (change)="onFileChangeEntrada($event)" id="uploadEntrada"
+                    class="upload-box" placeholder="Upload File">
+                <button *ngIf="aluguel.aluFotoEntrada" type="button" (click)="removeEntrada()">Excluir</button>
+            </div>
+
+            <label for="fotoSaida">Foto De Historial De Saída (*)</label>
+            <div class="upload-wrapper">
+                <input type="file" name="uploadSaida" (change)="onFileChangeSaida($event)" id="uploadSaida"
+                    class="upload-box" placeholder="Upload File">
+                <button *ngIf="aluguel.aluFotoSaida" type="button" (click)="removeSaida()">Excluir</button>
+            </div>
+
+            <label for="contrato">Contrato (*)</label>
+            <div class="upload-wrapper">
+                <input type="file" name="uploadContrato" (change)="onFileChangeContrato($event)" id="contrato"
+                    class="upload-box" placeholder="Upload File">
+                <button *ngIf="aluguel.aluContrato" type="button" (click)="removeContrato()">Excluir</button>
+            </div>
+
+        </div>
+        <button name="registro" id="button" (click)="registrar()"> ¡Cadastrar! </button>
+    </form>
+</body>
+
 <app-buttom-menu></app-buttom-menu>

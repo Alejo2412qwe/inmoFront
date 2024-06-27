@@ -1,2 +1,82 @@
-<p>alugueis works!</p>
+<table>
+    <thead>
+        <tr>
+            <th>ID do alugel</th>
+            <th>Endereço</th>
+            <th>Proprietário do inmovel</th>
+            <th>Inquilino que está alugando</th>
+            <th>Expiração</th>
+            <th>Foto De Historial De Entrada</th>
+            <th>Foto De Historial De Saída</th>
+            <th>Contrato</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr key={key} *ngFor="let alugue of listAluguel | paginate: { itemsPerPage: 5, currentPage: page }">
+            <td>{{alugue.aluId}}</td>
+            <td>{{alugue.aluEndereco}}</td>
+            <td>{{alugue.aluPropietario}}</td>
+            <td>{{alugue.aluInquilino}}</td>
+            <td>{{alugue.aluExpiracao}}</td>
+            <td>
+                <section class="imgSection">
+                    <div class="fotoUser">
+                        <img [src]="alugue.aluFotoEntrada || userImg" alt="Foto" style="width: 65px" />
+                    </div>
+                    <div class="btnFotoUser" [hidden]="!alugue.aluFotoEntrada">
+                        <button class="BtnDown" title="Descarga"
+                            (click)="downloadImage(alugue.aluFotoEntrada || userImg, ('fotoEntrada_'+alugue.aluEndereco))">
+                            <svg class="svgIcon" viewBox="0 0 384 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                                </path>
+                            </svg>
+                            <span class="icon2"></span>
+                        </button>
+                    </div>
+                </section>
+            </td>
+            <td>
+                <section class="imgSection">
+                    <div class="fotoUser">
+                        <img [src]="alugue.aluFotoSaida || userImg" alt="Foto" style="width: 65px" />
+                    </div>
+                    <div class="btnFotoUser" [hidden]="!alugue.aluFotoSaida">
+                        <button class="BtnDown" title="Descarga"
+                            (click)="downloadImage(alugue.aluFotoSaida || userImg, ('fotoSaida_'+alugue.aluEndereco))">
+                            <svg class="svgIcon" viewBox="0 0 384 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                                </path>
+                            </svg>
+                            <span class="icon2"></span>
+                        </button>
+                    </div>
+                </section>
+            </td>
+            <td>
+                <section class="imgSection">
+                    <div class="fotoUser">
+                        <img [src]="alugue.aluContrato || userImg" alt="Foto" style="width: 65px" />
+                    </div>
+                    <div class="btnFotoUser" [hidden]="!alugue.aluContrato">
+                        <button class="BtnDown" title="Descarga"
+                            (click)="downloadFile(alugue.aluContrato || userImg, ('contrato_'+alugue.aluEndereco))">
+                            <svg class="svgIcon" viewBox="0 0 384 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                                </path>
+                            </svg>
+                            <span class="icon2"></span>
+                        </button>
+                    </div>
+                </section>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div style="position: fixed; top: 80%; left: 50%; transform: translateX(-50%);">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Seguinte"
+        class="my-pagination"></pagination-controls>
+</div>
 <app-buttom-menu></app-buttom-menu>
