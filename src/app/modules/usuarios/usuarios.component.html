@@ -1,6 +1,7 @@
 <table>
     <thead>
         <tr>
+            <th>ID do usuário</th>
             <th>Foto</th>
             <th>CPF</th>
             <th>Nome Completo</th>
@@ -9,7 +10,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr key={key} *ngFor="let user of listaUsuarios | paginate: { itemsPerPage: 3, currentPage: page }">
+        <tr key={key} *ngFor="let user of listaUsuarios | paginate: { itemsPerPage: 5, currentPage: page }">
+            <td>{{user.usuId}}</td>
             <td style="display: flex; align-items: center; justify-content: center;">
                 <section class="imgSection">
                     <div class="fotoUser">
@@ -25,6 +27,7 @@
     </tbody>
 </table>
 <div style="position: fixed; top: 80%; left: 50%; transform: translateX(-50%);">
-    <pagination-controls (pageChange)="page = $event" previousLabel="Antigo" nextLabel="Seguindo"></pagination-controls>
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Seguinte"
+        class="my-pagination"></pagination-controls>
 </div>
 <app-buttom-menu></app-buttom-menu>

@@ -95,8 +95,8 @@ export class CadUsuarioComponent implements OnInit {
     //CEDULA
     if (!this.Persona.perCedula) {
       this.toastr.error(
-        'Cedula es un campo obligatorio',
-        'Ingrese un numero de identificación',
+        'CPF é um campo obrigatório',
+        'Digite um número de identificação',
         {
           timeOut: this.timeToastr,
         }
@@ -106,8 +106,8 @@ export class CadUsuarioComponent implements OnInit {
     } else {
       if (!validarCPF(this.Persona.perCedula)) {
         this.toastr.error(
-          'Digite correctamente su numero de identificación',
-          'Cedula invalido',
+          'Digite seu número de identificação corretamente',
+          'CPF Inválido',
           {
             timeOut: this.timeToastr,
           }
@@ -119,8 +119,8 @@ export class CadUsuarioComponent implements OnInit {
     //NOMBRES
     if (!this.Persona.perNombre) {
       this.toastr.error(
-        'Nombre es un campo obligatorio',
-        'Ingrese los nombres del usuario',
+        'O nome é um campo obrigatório',
+        'Digite os nomes do usuário',
         {
           timeOut: this.timeToastr,
         }
@@ -131,7 +131,7 @@ export class CadUsuarioComponent implements OnInit {
 
     //FOTO
     if (!this.Usuario.foto) {
-      this.toastr.info('No Olvide Ingresarla', 'Foto', {
+      this.toastr.info('Não se esqueça da foto', 'Foto', {
         timeOut: this.timeToastr,
       });
     }
@@ -139,8 +139,8 @@ export class CadUsuarioComponent implements OnInit {
     //APELLIDOS
     if (!this.Persona.perApellido) {
       this.toastr.error(
-        'Apellido es un campo obligatorio',
-        'Ingrese los apellidos del usuario',
+        'O sobrenome é um campo obrigatório',
+        'Digite o sobrenome do usuário',
         {
           timeOut: this.timeToastr,
         }
@@ -151,7 +151,7 @@ export class CadUsuarioComponent implements OnInit {
 
     //FECHA DE NACIMIENTO
     if (calcularEdad(this.Persona.perFechaNacimiento) < this.edadMinima) {
-      this.toastr.error('Debe ser mayor de edad para registrarse', '', {
+      this.toastr.error('Você deve ser maior de idade para se registrar', '', {
         timeOut: 3000,
       });
       return false;
@@ -160,8 +160,8 @@ export class CadUsuarioComponent implements OnInit {
     //TELEFONO
     if (!this.Persona.perTelefono) {
       this.toastr.error(
-        'Teléfono es un campo obligatorio',
-        'Ingrese el teléfono del usuario',
+        'Telefone é um campo obrigatório',
+        'Digite o número de telefone do usuário',
         {
           timeOut: this.timeToastr,
         }
@@ -173,8 +173,8 @@ export class CadUsuarioComponent implements OnInit {
     //DIRECCION
     if (!this.Persona.perDireccion) {
       this.toastr.error(
-        'Dirección es un campo obligatorio',
-        'Ingrese la dirección del usuario',
+        'O endereço é um campo obrigatório',
+        'Digite o endereço do usuário',
         {
           timeOut: this.timeToastr,
         }
@@ -186,8 +186,8 @@ export class CadUsuarioComponent implements OnInit {
     //NOMBRE DE USUARIO
     if (!this.Usuario.usuNombreUsuario) {
       this.toastr.error(
-        'Nombre de usuario es un campo obligatorio',
-        'Ingrese un nombre de usuario',
+        'O nome de usuário é um campo obrigatório',
+        'Digite um nome de usuário',
         {
           timeOut: this.timeToastr,
         }
@@ -200,8 +200,8 @@ export class CadUsuarioComponent implements OnInit {
 
     if (!this.Usuario.usuCorreo) {
       this.toastr.error(
-        'Correo es un campo obligatorio',
-        'Ingrese el correo del usuario',
+        'E-mail é um campo obrigatório',
+        'Digite o e-mail do usuário',
         {
           timeOut: this.timeToastr,
         }
@@ -211,8 +211,8 @@ export class CadUsuarioComponent implements OnInit {
     } else {
       if (!validarCorreo(this.Usuario.usuCorreo)) {
         this.toastr.error(
-          'Digite correctamente el correo electronico',
-          'Correo invalido',
+          'Digite o e-mail corretamente',
+          'E-mail inválido',
           {
             timeOut: this.timeToastr,
           }
@@ -224,8 +224,8 @@ export class CadUsuarioComponent implements OnInit {
     //CONTRASEÑA
     if (!this.Usuario.usuContrasena && !this.editeMode) {
       this.toastr.error(
-        'Contraseña es un campo obligatorio',
-        'Ingrese la contraseña del usuario',
+        'Senha é um campo obrigatório',
+        'Digite a senha do usuário',
         {
           timeOut: this.timeToastr,
         }
@@ -238,8 +238,8 @@ export class CadUsuarioComponent implements OnInit {
 
     if (!this.confirmarPass && !this.editeMode) {
       this.toastr.error(
-        'Es obligatorio confirmar la contraseña',
-        'Confirme la contraseña',
+        'A confirmação da senha é necessária',
+        'Confirme sua senha',
         {
           timeOut: this.timeToastr,
         }
@@ -249,8 +249,8 @@ export class CadUsuarioComponent implements OnInit {
     } else {
       if (this.Usuario.usuContrasena !== this.confirmarPass) {
         this.toastr.error(
-          'Las contraseñas no coinciden, digite correctamente',
-          'La contraseñá no coincide',
+          'As senhas não coincidem, digite corretamente',
+          'Senha não corresponde',
           {
             timeOut: this.timeToastr,
           }
@@ -263,8 +263,8 @@ export class CadUsuarioComponent implements OnInit {
     //ROL
     if (this.Usuario.rolId.rolId <= 0) {
       this.toastr.error(
-        'Debe seleccionar el rol del usuario',
-        'Seleccione el rol',
+        'Você deve selecionar a função do usuário',
+        'Selecione a função',
         {
           timeOut: this.timeToastr,
         }
@@ -296,27 +296,18 @@ export class CadUsuarioComponent implements OnInit {
 
                   // REGISTRAR USUARIO
                   this.usuarioService.registrarUsuario(this.Usuario).subscribe((response) => {
-                    Swal.fire({
-                      title: '¡Registro Exitoso!',
-                      text: `${this.Persona.perNombre} ${this.Persona.perApellido} (${this.Usuario.rolId.rolNombre}) agregado correctamente`,
-                      icon: 'success',
-                      confirmButtonText: 'Confirmar',
-                      showCancelButton: false, // No mostrar el botón de cancelar
-                    }).then(() => {
-                      this.limpiarRegistro();
-                      this.router.navigate(['/listausu']);
-                    });
+
                   });
                 });
               }
             } else {
-              this.toastr.error('El nombre de usuario que ingresaste ya se encuentra registrado', 'Usuario duplicado', {
+              this.toastr.error('O nome de usuário que você digitou já está registrado', 'Usuário duplicado', {
                 timeOut: this.timeToastr,
               });
             }
           });
         } else {
-          this.toastr.error('La cédula que ingresaste ya se encuentra registrada', 'Cédula duplicada', {
+          this.toastr.error('O CPF que você digitou já está cadastrado', 'CPF duplicado', {
             timeOut: this.timeToastr,
           });
         }

@@ -1,5 +1,4 @@
 <body>
-    <!-- ENVIA A LA BASE DE DATOS -->
     <form>
         <div id="formulario">
             <h1> CADASTRO DE USUÁRIO </h1>
@@ -11,7 +10,7 @@
             <div class="upload-wrapper">
                 <input type="file" name="upload" (change)="onFileChange($event)" [(ngModel)]="Usuario.foto" id="upload"
                     class="upload-box" placeholder="Upload File">
-                <button *ngIf="Usuario.foto" type="button" (click)="removeFile()">Remover Arquivo</button>
+                <button *ngIf="Usuario.foto" type="button" (click)="removeFile()">Excluir</button>
             </div>
 
             <label for="cpf">CPF (*)</label>

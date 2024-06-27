@@ -1,0 +1,159 @@
+/* TITULO -------------------------------------------------------- */
+#formulario {
+    font-family: sans-serif;
+    background: #e82b00;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    border-top-left-radius: 19px;
+    border-top-right-radius: 19px;
+    border-bottom: 5px solid #a61e00;
+    margin-bottom: 5px;
+    margin-top: 5%;
+}
+
+/* --------------------------------------------------------------- */
+/* --------------------------------------------------------------- */
+/* FORMULARIO: fondo blanco y casillas --------------------------- */
+form {
+    background-color: white;
+    margin: 10px;
+    margin: 0 auto;
+    border-radius: 19px;
+    width: 40%;
+    /* SECUENCIA: para centrar formulario */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* TAMAÑO LETRA: nombre, apellido, e-mail, etc ----- */
+label {
+    margin-left: 8px;
+    font-size: 12px;
+    padding: 5px;
+    display: block;
+    width: 100%;
+    font-family: sans-serif;
+}
+
+/* -------------------------------------------------- */
+/* EDICION CADA INPUT: diseño ----------------------- */
+input {
+    margin-bottom: 10px;
+    width: 95%;
+    padding: 2%;
+    margin-left: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-style: italic;
+}
+
+/* Cuando da click dentro de un input --------------- */
+input:focus {
+    background-color: #F2F2F2;
+}
+
+/* -------------------------------------------------- */
+/* --------------------------------------------------------------- */
+/* C U E R P O  -------------------------------------------------- */
+body {
+    background-image: linear-gradient(-90deg, #6ABBF7, #BD7CFA);
+}
+
+/* --------------------------------------------------------------- */
+/* FUNCION DEL BOTON REGISTRARSE --------- */
+#button {
+    width: 94%;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: bolder;
+    background-color: #e82b00;
+    color: #fff;
+    cursor: pointer;
+    margin-bottom: 15px;
+    margin-left: 10px;
+    border: none;
+    padding: 3%;
+    border-radius: 20px 10px 20px 10px;
+    /* SOMBRA BOTON: darle sommbre al boton "resgistrarse"*/
+    -webkit-box-shadow: 4px 9px 8px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 4px 9px 8px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 4px 9px 8px -4px rgba(0, 0, 0, 0.75);
+}
+
+#button:hover {
+    background-color: #a61e00;
+}
+
+/* Estilo para el select */
+select {
+    margin-bottom: 10px;
+    width: 95%;
+    padding: 2%;
+    margin-left: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-style: italic;
+    font-family: sans-serif;
+}
+
+/* Cuando da click dentro del select --------------- */
+select:focus {
+    background-color: #F2F2F2;
+}
+
+/* Estilo para el input file */
+.upload-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 95%;
+}
+
+.upload-box {
+    flex: 1;
+    padding: 2%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-style: italic;
+    font-family: sans-serif;
+    cursor: pointer;
+    background-color: white;
+}
+
+/* Cuando da click dentro del input file --------------- */
+.upload-box:focus {
+    background-color: #F2F2F2;
+}
+
+.upload-wrapper button {
+    margin-left: 10px;
+    padding: 2%;
+    margin-top: -2%;
+    border: 1px solid #ccc;
+    background-color: #e82b00;
+    color: white;
+    font-family: sans-serif;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-wrapper button:hover {
+    background-color: #a61e00;
+}
+
+.invalid-input {
+    border: 1px solid red;
+}
+
+
+/* ---------------------------------------- */

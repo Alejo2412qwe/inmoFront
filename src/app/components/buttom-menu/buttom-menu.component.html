@@ -29,7 +29,7 @@
                 <a (click)="goBack()"><i class="fas fa-arrow-left"></i></a>
             </div>
         </li>
-        <li>
+        <li *ngIf="currentRoute == '/nav'">
             <span class="fab-label">Logout</span>
             <div class="fab-icon-holder">
                 <a (click)="salir()"><i class="fas fa-sign-out-alt"></i></a>
