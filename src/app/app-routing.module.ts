@@ -25,18 +25,16 @@ const routes: Routes = [
     path: 'cadastro',
     component: CadastroComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Usuario'] }
+    data: { expectedRoles: ['Administrador', 'Empleado'] }
   },
   {
     path: 'nav',
-    component: NavComponent,
-    canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Usuario'] }
+    component: NavComponent
   },
   {
     path: 'alugueis', component: AlugueisComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Usuario'] }
+    data: { expectedRoles: ['Administrador', 'Empleado'] }
   },
 ];
 

@@ -15,9 +15,9 @@
         <tr key={key} *ngFor="let alugue of listAluguel | paginate: { itemsPerPage: 5, currentPage: page }">
             <td>{{alugue.aluId}}</td>
             <td>{{alugue.aluEndereco}}</td>
-            <td>{{alugue.aluPropietario}}</td>
-            <td>{{alugue.aluInquilino}}</td>
-            <td>{{alugue.aluExpiracao}}</td>
+            <td>{{alugue.aluPropietario.usuPerId.perNombre+' '+alugue.aluPropietario.usuPerId.perApellido}}</td>
+            <td>{{alugue.aluInquilino.usuPerId.perNombre+' '+alugue.aluInquilino.usuPerId.perApellido}}</td>
+            <td>{{alugue.aluExpiracao | date:'dd/MM/yyyy'}}</td>
             <td>
                 <section class="imgSection">
                     <div class="fotoUser">

@@ -296,7 +296,16 @@ export class CadUsuarioComponent implements OnInit {
 
                   // REGISTRAR USUARIO
                   this.usuarioService.registrarUsuario(this.Usuario).subscribe((response) => {
-
+                    Swal.fire({
+                      title: '¡Registro bem-sucedido!',
+                      text: `${this.Persona.perNombre} ${this.Persona.perApellido} (${this.Usuario.rolId.rolNombre}) adicionado com sucesso`,
+                      icon: 'success',
+                      confirmButtonText: 'Confirmar',
+                      showCancelButton: false,
+                    }).then(() => {
+                      this.limpiarRegistro();
+                      this.router.navigate(['/usuarios']);
+                    });
                   });
                 });
               }
