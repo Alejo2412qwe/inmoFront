@@ -1,9 +1,11 @@
+import { Usuario } from "./usuario";
+
 export class Aluguel {
 
     aluId: number;
     aluEndereco: string;
-    aluPropietario: number;
-    aluInquilino: number;
+    aluPropietario: Usuario;
+    aluInquilino: Usuario;
     aluFotoEntrada: string;
     aluFotoSaida: string;
     aluContrato: string;
@@ -12,8 +14,8 @@ export class Aluguel {
     constructor(
         aluId?: number,
         aluEndereco?: string,
-        aluPropietario?: number,
-        aluInquilino?: number,
+        aluPropietario?: Usuario,
+        aluInquilino?: Usuario,
         aluFotoEntrada?: string,
         aluFotoSaida?: string,
         aluContrato?: string,
@@ -21,8 +23,8 @@ export class Aluguel {
     ) {
         this.aluId = aluId || 0;
         this.aluEndereco = aluEndereco || '';
-        this.aluPropietario = aluPropietario || 0;
-        this.aluInquilino = aluInquilino || 0;
+        this.aluPropietario = aluPropietario || new Usuario();
+        this.aluInquilino = aluInquilino || new Usuario();
         this.aluFotoEntrada = aluFotoEntrada || '';
         this.aluFotoSaida = aluFotoSaida || '';
         this.aluContrato = aluContrato || '';

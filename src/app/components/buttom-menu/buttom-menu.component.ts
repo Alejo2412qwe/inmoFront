@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 @Component({
   selector: 'app-buttom-menu',
@@ -13,13 +14,15 @@ export class ButtomMenuComponent {
 
   constructor(
     private router: Router,
-    private toastr: ToastrService) {
+    private toastr: ToastrService, private sessionStorage: SessionStorageService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.urlAfterRedirects;
       }
     });
   }
+
+  rol: string = this.sessionStorage.getItem('rol') || '';
 
   salir(): void {
     this.toastr.info('A sessão foi encerrada');

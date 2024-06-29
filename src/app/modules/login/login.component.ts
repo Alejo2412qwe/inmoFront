@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
     this.sessionStorage.clear();
   }
 
+  route!: string;
+
   decodeToken(token: string) {
     try {
       const decodedToken: any = jwtDecode(token);
@@ -67,7 +69,14 @@ export class LoginComponent implements OnInit {
                   confirmButtonText: 'OK',
                   showCancelButton: false,
                 }).then(() => {
-                  this.router.navigate(['/nav']);
+                  if (this.sessionStorage.getItem('rol') == 'Administrador' || this.sessionStorage.getItem('rol') == 'Empleado') {
+                    this.router.navigate(['/nav']);
+                  } else if (this.sessionStorage.getItem('rol') == 'Propietario') {
+                    this.router.navigate(['/alugueis']);
+                  } else {
+                    this.route = '/infoAluguel/' + this.sessionStorage.getItem('userId');
+                    this.router.navigate([this.route]);
+                  }
                 });
               } else {
                 alert('user not found');

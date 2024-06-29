@@ -23,8 +23,22 @@ export class UsuariosComponent implements OnInit {
   userImg = USER
   searchString: string = '';
 
-  ngOnInit(): void {
-    this.loadUsers(1);
+  isLoading: boolean = true;
+
+  ngOnInit() {
+    this.loadData();
+  }
+
+  loadData() {
+    const dataLoadPromise = new Promise<void>((resolve) => {
+      setTimeout(() => {
+        this.loadUsers(1)
+        resolve();
+      }, 2000);
+    });
+    dataLoadPromise.then(() => {
+      this.isLoading = false;
+    });
   }
 
   loadUsers(est: number) {

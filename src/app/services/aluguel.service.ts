@@ -38,6 +38,21 @@ export class AluguelService {
         });
     }
 
+    getAluguelByInquilino(id: number) {
+
+        // Construir el encabezado de autorización
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+        });
+
+        // Realiza la solicitud HTTP con el encabezado de autorización
+        return this.http.get<Aluguel>(
+            `${this.url}/getAluguelByInquilino?id=${id}`,
+            { headers }
+        );
+
+    }
+
     getAllAlugueis() {
 
         // Construir el encabezado de autorización

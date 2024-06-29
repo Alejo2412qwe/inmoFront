@@ -17,6 +17,8 @@ import { NavComponent } from './modules/nav/nav.component';
 import { ButtomMenuComponent } from './components/buttom-menu/buttom-menu.component';
 import { AlugueisComponent } from './modules/alugueis/alugueis.component';
 import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component';
+import { InfoaluguelComponent } from './modules/infoaluguel/infoaluguel.component';
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component
     NavComponent,
     ButtomMenuComponent,
     AlugueisComponent,
-    CadUsuarioComponent
+    CadUsuarioComponent,
+    InfoaluguelComponent,
+    LoadingScreenComponent
   ],
   imports: [
     BrowserModule,

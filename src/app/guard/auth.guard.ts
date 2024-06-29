@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
         }
 
 
-        this.toastr.error('ACCESO NO PERMITIDO')
+        this.toastr.error('ACESSO NEGADO')
         this.cerrarSesion();
         this.router.navigate(['/login']);
         return false;
