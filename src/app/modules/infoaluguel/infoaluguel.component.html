@@ -1,2 +1,5 @@
 <app-loading-screen [isLoading]="isLoading"></app-loading-screen>
+<div *ngIf="isLoading == false">
+    <a>{{aluguel.aluEndereco}}</a>
+</div>
 <app-buttom-menu></app-buttom-menu>

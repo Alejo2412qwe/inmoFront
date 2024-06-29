@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Aluguel } from 'src/app/models/aluguel';
+import { AluguelService } from 'src/app/services/aluguel.service';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 @Component({
   selector: 'app-infoaluguel',
@@ -7,7 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InfoaluguelComponent implements OnInit {
 
+  constructor(private aluguelService: AluguelService,
+    private toastr: ToastrService,
+    private sessionStorage: SessionStorageService) { }
+
   isLoading: boolean = true;
+  aluguel: Aluguel = new Aluguel();
+
+  userId: number = this.sessionStorage.getItem('userId') || 0;
 
   ngOnInit() {
     this.loadData();
@@ -16,7 +27,7 @@ export class InfoaluguelComponent implements OnInit {
   loadData() {
     const dataLoadPromise = new Promise<void>((resolve) => {
       setTimeout(() => {
-        alert('YA CARGOOooooooooooo')
+        this.getAluguelByInquilino();
         resolve();
       }, 2000);
     });
@@ -25,6 +36,10 @@ export class InfoaluguelComponent implements OnInit {
     });
   }
 
-
+  getAluguelByInquilino() {
+    this.aluguelService.getAluguelByInquilino(this.userId).subscribe((data) => {
+      this.aluguel = data
+    })
+  }
 
 }

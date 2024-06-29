@@ -13,7 +13,9 @@ import { SessionStorageService } from 'src/app/services/session-storage.service'
 })
 export class AlugueisComponent implements OnInit {
 
-  constructor(private aluguelService: AluguelService, private toastr: ToastrService, private sessionStorage: SessionStorageService) { }
+  constructor(private aluguelService: AluguelService, 
+    private toastr: ToastrService, 
+    private sessionStorage: SessionStorageService) { }
 
   isLoading: boolean = true;
   page!: number;
