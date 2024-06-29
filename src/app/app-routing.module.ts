@@ -7,6 +7,7 @@ import { CadastroComponent } from './modules/cadastro/cadastro.component';
 import { NavComponent } from './modules/nav/nav.component';
 import { AlugueisComponent } from './modules/alugueis/alugueis.component';
 import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component';
+import { InfoaluguelComponent } from './modules/infoaluguel/infoaluguel.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -29,12 +30,19 @@ const routes: Routes = [
   },
   {
     path: 'nav',
-    component: NavComponent
+    component: NavComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador', 'Empleado'] }
   },
   {
     path: 'alugueis', component: AlugueisComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Empleado'] }
+    data: { expectedRoles: ['Administrador', 'Empleado', 'Propietario'] }
+  },
+  {
+    path: 'infoAluguel/:id', component: InfoaluguelComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador', 'Empleado', 'Propietario', 'Inquilino'] }
   },
 ];
 

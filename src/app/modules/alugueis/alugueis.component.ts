@@ -4,6 +4,7 @@ import { decodeBase64Download, decodeBase64PDF } from 'src/app/common/base64';
 import { USER } from 'src/app/common/img64';
 import { Aluguel } from 'src/app/models/aluguel';
 import { AluguelService } from 'src/app/services/aluguel.service';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 @Component({
   selector: 'app-alugueis',
@@ -12,8 +13,9 @@ import { AluguelService } from 'src/app/services/aluguel.service';
 })
 export class AlugueisComponent implements OnInit {
 
-  constructor(private aluguelService: AluguelService, private toastr: ToastrService,) { }
+  constructor(private aluguelService: AluguelService, private toastr: ToastrService, private sessionStorage: SessionStorageService) { }
 
+  isLoading: boolean = true;
   page!: number;
 
   listAluguel: Aluguel[] = []
@@ -22,8 +24,22 @@ export class AlugueisComponent implements OnInit {
   userImg = USER
   searchString: string = '';
 
+  rol: string = this.sessionStorage.getItem('rol') || '';
+
   ngOnInit(): void {
-    this.loadAlugueis();
+    this.loadData();
+  }
+
+  loadData() {
+    const dataLoadPromise = new Promise<void>((resolve) => {
+      setTimeout(() => {
+        this.loadAlugueis();
+        resolve();
+      }, 2000);
+    });
+    dataLoadPromise.then(() => {
+      this.isLoading = false;
+    });
   }
 
   loadAlugueis() {
