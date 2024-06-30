@@ -6,6 +6,7 @@ export class Aluguel {
     aluEndereco: string;
     aluPropietario: Usuario;
     aluInquilino: Usuario;
+    aluComprovante:string;
     aluFotoEntrada: string;
     aluFotoSaida: string;
     aluContrato: string;
@@ -16,6 +17,7 @@ export class Aluguel {
         aluEndereco?: string,
         aluPropietario?: Usuario,
         aluInquilino?: Usuario,
+        aluComprovante?: string,
         aluFotoEntrada?: string,
         aluFotoSaida?: string,
         aluContrato?: string,
@@ -25,6 +27,7 @@ export class Aluguel {
         this.aluEndereco = aluEndereco || '';
         this.aluPropietario = aluPropietario || new Usuario();
         this.aluInquilino = aluInquilino || new Usuario();
+        this.aluComprovante = aluComprovante || '';
         this.aluFotoEntrada = aluFotoEntrada || '';
         this.aluFotoSaida = aluFotoSaida || '';
         this.aluContrato = aluContrato || '';

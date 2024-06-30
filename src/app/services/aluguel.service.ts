@@ -38,6 +38,30 @@ export class AluguelService {
         });
     }
 
+    updateComprovante(id: number, com: string): Observable<void> {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+        });
+
+        return this.http.put<void>(
+            `${this.url}/updateComprovante?id=${id}`,
+            com,
+            { headers }
+        );
+    }
+
+    findByAluId(id: number) {
+        // Construir el encabezado de autorización
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+        });
+
+        // Realiza la solicitud HTTP con el encabezado de autorización
+        return this.http.get<Aluguel>(`${this.url}/findByAluId?id=${id}`, {
+            headers,
+        });
+    }
+
     getAluguelByInquilino(id: number) {
 
         // Construir el encabezado de autorización
