@@ -257,7 +257,7 @@ export class CadastroComponent implements OnInit {
         showCancelButton: false, // No mostrar el botón de cancelar
       }).then(() => {
         this.limpiarRegistro();
-        this.router.navigate(['/cadastro']);
+        this.router.navigate(['/alugueis']);
       });
     })
   }
@@ -265,5 +265,11 @@ export class CadastroComponent implements OnInit {
   limpiarRegistro() {
     this.Usuario = new Usuario();
     this.aluguel = new Aluguel();
+    this.base64StringContrato = '';
+    this.base64StringEntrada = '';
+    this.base64StringSaida = '';
+    this.selectedFileEntrada = undefined;
+    this.selectedFileContrato = undefined;
+    this.selectedFileSaida = undefined;
   }
 }
