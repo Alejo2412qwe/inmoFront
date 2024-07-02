@@ -29,6 +29,9 @@
             <label for="email">Expiração (*) </label>
             <input name="ffatanasc" type="date" id="tabla" [(ngModel)]="aluguel.aluExpiracao">
 
+            <label for="email">Dia De Pagamento (*) </label>
+            <input name="ffatanasc" type="number" id="tabla" [(ngModel)]="aluguel.aluDiaPago">
+
             <label for="fotoEntrada">Foto De Historial De Entrada (*)</label>
             <div class="upload-wrapper">
                 <input type="file" name="uploadEntrada" (change)="onFileChangeEntrada($event)" id="uploadEntrada"

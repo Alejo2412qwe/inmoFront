@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { decodeBase64Download, decodeBase64PDF } from 'src/app/common/base64';
+import { base64PDFpreview, decodeBase64Download, decodeBase64PDF } from 'src/app/common/base64';
 import { USER } from 'src/app/common/img64';
 import { Aluguel } from 'src/app/models/aluguel';
 import { AluguelService } from 'src/app/services/aluguel.service';
@@ -55,6 +55,10 @@ export class AlugueisComponent implements OnInit {
 
   downloadFile(base64Data: string, name: string) {
     decodeBase64PDF(base64Data, name, this.toastr)
+  }
+
+  previewBase64PDF(base64: string, filename: string) {
+    base64PDFpreview(base64, filename)
   }
 
 }
