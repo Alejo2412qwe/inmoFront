@@ -166,6 +166,17 @@ export class UsuarioService {
     );
   }
 
+
+  getCantidadUsuarios() {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+    });
+
+    return this.http.get<number>(`${this.url}/cantidadUsuarios`, {
+      headers,
+    });
+  }
+
   usuarioUnico(user: string) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,

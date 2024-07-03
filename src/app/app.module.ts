@@ -19,6 +19,7 @@ import { AlugueisComponent } from './modules/alugueis/alugueis.component';
 import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component';
 import { InfoaluguelComponent } from './modules/infoaluguel/infoaluguel.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
+import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { LoadingScreenComponent } from './components/loading-screen/loading-scre
     AlugueisComponent,
     CadUsuarioComponent,
     InfoaluguelComponent,
-    LoadingScreenComponent
+    LoadingScreenComponent,
+    AdminpanelComponent
   ],
   imports: [
     BrowserModule,

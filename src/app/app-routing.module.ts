@@ -8,10 +8,12 @@ import { NavComponent } from './modules/nav/nav.component';
 import { AlugueisComponent } from './modules/alugueis/alugueis.component';
 import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component';
 import { InfoaluguelComponent } from './modules/infoaluguel/infoaluguel.component';
+import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'admin', component: AdminpanelComponent },
   {
     path: 'cadUsuarios', component: CadUsuarioComponent,
     canActivate: [AuthGuard],

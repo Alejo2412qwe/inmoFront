@@ -102,6 +102,16 @@ export class AluguelService {
 
     }
 
+    getCantidadAluguels() {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+        });
+
+        return this.http.get<number>(`${this.url}/cantidadAluguels`, {
+            headers,
+        });
+    }
+
     inquilinoUnico(id: number) {
         const headers = new HttpHeaders({
             Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
