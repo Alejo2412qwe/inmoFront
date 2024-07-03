@@ -1,5 +1,11 @@
 <app-loading-screen [isLoading]="isLoading"></app-loading-screen>
 <div *ngIf="isLoading == false">
+    <div class="search-container">
+        <input type="text" [(ngModel)]="searchString"
+            placeholder="Pesquise por CPF, nome, sobrenome, nome de usuário ou telefone..."
+            title="Pesquise por ID, nome, sobrenome, nome de usuário ou telefone..."
+            (input)="searchAluguel(searchString, estList)" />
+    </div>
     <table>
         <thead>
             <tr>
@@ -16,10 +22,11 @@
                 <th>Comprovante De Pagamento</th>
                 <th>Status De Pagamento</th>
                 <th>Status De Aluguel</th>
+                <th>Ver mais</th>
             </tr>
         </thead>
         <tbody>
-            <tr key={key} *ngFor="let alugue of listAluguel | paginate: { itemsPerPage: 5, currentPage: page }">
+            <tr key={key} *ngFor="let alugue of listAluguel | paginate: { itemsPerPage: 3, currentPage: page }">
                 <td>{{alugue.aluId}}</td>
                 <td>{{'R$'+alugue.aluValor}}</td>
                 <td>{{alugue.aluEndereco}}</td>
@@ -102,12 +109,15 @@
                 <td>
                     {{alugue.aluEstado == 1?'Ativo':'Inativo'}}
                 </td>
+                <td>
+                    <a [routerLink]="['/infoAluguel/'+alugue.aluId]"><i class="fas fa-plus fa-3x"></i></a>
+                </td>
             </tr>
         </tbody>
     </table>
-    <div style="position: fixed; top: 80%; left: 50%; transform: translateX(-50%);">
-        <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Seguinte"
-            class="my-pagination"></pagination-controls>
-    </div>
+</div>
+<div style="display: flex; justify-content: center; position: relative; bottom: 0; margin-top: 1%; width: 100%;">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Seguinte"
+        class="my-pagination"></pagination-controls>
 </div>
 <app-buttom-menu></app-buttom-menu>

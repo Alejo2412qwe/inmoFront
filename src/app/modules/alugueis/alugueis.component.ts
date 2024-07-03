@@ -61,4 +61,11 @@ export class AlugueisComponent implements OnInit {
     base64PDFpreview(base64, filename)
   }
 
+  searchAluguel(search: string, est: number) {
+    this.aluguelService.searchAluguel(search, est).subscribe((response) => {
+      this.listAluguel = response;
+
+    });
+  }
+
 }

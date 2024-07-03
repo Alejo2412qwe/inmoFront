@@ -5,7 +5,10 @@
             <h2 class="text-3xl font-extrabold text-blue-700 dark:text-blue-300">
                 {{
                 rol == "Administrador"
-                ? "Alugue " + aluguel.aluId
+                ? "Propiedade De " +
+                aluguel.aluPropietario.usuPerId.perNombre +
+                " " +
+                aluguel.aluPropietario.usuPerId.perApellido
                 : "Aluguel De " +
                 aluguel.aluInquilino.usuPerId.perNombre +
                 " " +
@@ -18,7 +21,7 @@
             <p class="mt-2 text-lg text-gray-700 dark:text-gray-400">
                 Valor Do Aluguel: {{ 'R$'+aluguel.aluValor }}
             </p>
-            <p class="mt-2 text-lg text-gray-700 dark:text-gray-400">
+            <p *ngIf="rol != 'Administrador' " class="mt-2 text-lg text-gray-700 dark:text-gray-400">
                 Própietario:
                 {{
                 aluguel.aluPropietario.usuPerId.perNombre +

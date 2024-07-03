@@ -17,7 +17,7 @@
                         class="fas fa-plus"></i></a>
             </div>
         </li>
-        <li *ngIf="currentRoute == '/usuarios' || currentRoute == '/alugueis' && rol=='Administrador'">
+        <li *ngIf="currentRoute != '/nav' && rol=='Administrador'">
             <span class="fab-label">Voltar ao menu principal</span>
             <div class="fab-icon-holder">
                 <a [routerLink]="['/nav']"><i class="fas fa-arrow-left"></i></a>

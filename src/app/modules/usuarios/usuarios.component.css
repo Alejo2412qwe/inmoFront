@@ -115,3 +115,34 @@ tbody:hover tr:hover td {
 .my-pagination ::ng-deep .ngx-pagination .current {
     background: #e82b00;
 }
+
+/*Pesquisa*/
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-container input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+    margin-right: 10px;
+    width: 30%;
+}
+
+.search-container button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #e82b00;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #c52800;
+}

@@ -60,4 +60,11 @@ export class UsuariosComponent implements OnInit {
     decodeBase64PDF(base64Data, name, this.toastr)
   }
 
+  searchUser(search: string, est: number) {
+    this.UsuarioService.searchUsersData(search, est).subscribe((response) => {
+      this.listaUsuarios = response;
+
+    });
+  }
+
 }

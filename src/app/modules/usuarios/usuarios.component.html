@@ -1,5 +1,11 @@
 <app-loading-screen [isLoading]="isLoading"></app-loading-screen>
 <div *ngIf="isLoading == false">
+    <div class="search-container">
+        <input type="text" [(ngModel)]="searchString"
+            placeholder="Pesquise por CPF, nome, sobrenome, nome de usuário ou telefone..."
+            title="Pesquise por ID, nome, sobrenome, nome de usuário ou telefone..."
+            (input)="searchUser(searchString, estList)" />
+    </div>
     <table>
         <thead>
             <tr>
@@ -28,9 +34,9 @@
             </tr>
         </tbody>
     </table>
-    <div style="position: fixed; top: 80%; left: 50%; transform: translateX(-50%);">
-        <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Seguinte"
-            class="my-pagination"></pagination-controls>
-    </div>
+</div>
+<div style="display: flex; justify-content: center; position: relative; bottom: 0; margin-top: 1%; width: 100%;">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Seguinte"
+        class="my-pagination"></pagination-controls>
 </div>
 <app-buttom-menu></app-buttom-menu>

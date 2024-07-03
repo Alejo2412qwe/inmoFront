@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Aluguel } from 'src/app/models/aluguel';
 import { AluguelService } from 'src/app/services/aluguel.service';
@@ -15,7 +16,8 @@ export class InfoaluguelComponent implements OnInit {
   constructor(private aluguelService: AluguelService,
     private toastr: ToastrService,
     private sessionStorage: SessionStorageService,
-    private emailService: EmailService) { }
+    private emailService: EmailService,
+    private activatedRoute: ActivatedRoute,) { }
 
   isLoading: boolean = true;
   aluguel: Aluguel = new Aluguel();
@@ -26,15 +28,19 @@ export class InfoaluguelComponent implements OnInit {
   selectedFile: File | null = null;
   base64Image: any;
   base64String: string = '';
+  idAluguel!: number;
 
   ngOnInit() {
     this.loadData();
+    this.activatedRoute.params.subscribe((params) => {
+      this.idAluguel = params['id'];
+    });
   }
 
   loadData() {
     const dataLoadPromise = new Promise<void>((resolve) => {
       setTimeout(() => {
-        this.getAluguelByInquilino();
+        this.getAluguel();
         resolve();
       }, 2000);
     });
@@ -43,10 +49,16 @@ export class InfoaluguelComponent implements OnInit {
     });
   }
 
-  getAluguelByInquilino() {
-    this.aluguelService.getAluguelByInquilino(this.userId).subscribe((data) => {
-      this.aluguel = data
-    })
+  getAluguel() {
+    if (this.rol == 'Inquilino') {
+      this.aluguelService.getAluguelByInquilino(this.userId).subscribe((data) => {
+        this.aluguel = data
+      })
+    } else {
+      this.aluguelService.findByAluId(this.idAluguel).subscribe((data) => {
+        this.aluguel = data
+      })
+    }
   }
 
   onFileChange(id: number, event: Event) {
