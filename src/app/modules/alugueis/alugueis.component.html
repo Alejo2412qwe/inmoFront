@@ -4,6 +4,7 @@
         <thead>
             <tr>
                 <th>ID do alugel</th>
+                <th>Valor Do Aluguel</th>
                 <th>Endereço</th>
                 <th *ngIf="rol == 'Administrador'">Proprietário do inmovel</th>
                 <th>Inquilino que está alugando</th>
@@ -13,11 +14,14 @@
                 <th>Foto De Historial De Saída</th>
                 <th>Contrato</th>
                 <th>Comprovante De Pagamento</th>
+                <th>Status De Pagamento</th>
+                <th>Status De Aluguel</th>
             </tr>
         </thead>
         <tbody>
             <tr key={key} *ngFor="let alugue of listAluguel | paginate: { itemsPerPage: 5, currentPage: page }">
                 <td>{{alugue.aluId}}</td>
+                <td>{{'R$'+alugue.aluValor}}</td>
                 <td>{{alugue.aluEndereco}}</td>
                 <td *ngIf="rol == 'Administrador'">{{alugue.aluPropietario.usuPerId.perNombre+'
                     '+alugue.aluPropietario.usuPerId.perApellido}}</td>
@@ -81,7 +85,6 @@
                         </div>
                     </section>
                 </td>
-
                 <td class="tdTbl">
                     <ng-container *ngIf="alugue.aluComprovante; else noInfo">
                         <button role="button" class="button-name" (click)="previewBase64PDF(alugue.aluComprovante, 'Comprovante_'+
@@ -92,6 +95,12 @@
                     <ng-template #noInfo>
                         Sem Comprovante
                     </ng-template>
+                </td>
+                <td>
+                    {{alugue.aluComprovante?'Pago':'Não Pago'}}
+                </td>
+                <td>
+                    {{alugue.aluEstado == 1?'Ativo':'Inativo'}}
                 </td>
             </tr>
         </tbody>

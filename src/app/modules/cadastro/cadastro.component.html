@@ -53,6 +53,10 @@
                 <button *ngIf="aluguel.aluContrato" type="button" (click)="removeContrato()">Excluir</button>
             </div>
 
+            <label for="endereço">Valor do inmovel(*)</label>
+            <input placeholder="Digite o valor do inmovel..." name="fvalor" type="number" id="tabla"
+                [(ngModel)]="aluguel.aluValor">
+
         </div>
         <button name="registro" id="button" (click)="registrar()"> ¡Cadastrar! </button>
     </form>

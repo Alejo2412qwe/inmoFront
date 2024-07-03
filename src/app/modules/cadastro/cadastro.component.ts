@@ -248,6 +248,7 @@ export class CadastroComponent implements OnInit {
   }
 
   registrar() {
+    this.aluguel.aluEstado = 1;
     this.aluguelService.registrarAluguel(this.aluguel).subscribe(() => {
       Swal.fire({
         title: '¡Registro bem-sucedido!',

@@ -16,6 +16,9 @@
                 Endereço: {{ aluguel.aluEndereco }}
             </p>
             <p class="mt-2 text-lg text-gray-700 dark:text-gray-400">
+                Valor Do Aluguel: {{ 'R$'+aluguel.aluValor }}
+            </p>
+            <p class="mt-2 text-lg text-gray-700 dark:text-gray-400">
                 Própietario:
                 {{
                 aluguel.aluPropietario.usuPerId.perNombre +
