@@ -1,5 +1,78 @@
 <app-loading-screen [isLoading]="isLoading"></app-loading-screen>
 <div *ngIf="isLoading == false">
-    <a>{{aluguel.aluEndereco}}</a>
+    <div class="max-w-3xl mx-auto p-6">
+        <div class="mb-6">
+            <h2 class="text-3xl font-extrabold text-blue-700 dark:text-blue-300">
+                {{
+                rol == "Administrador"
+                ? "Propiedade De " +
+                aluguel.aluPropietario.usuPerId.perNombre +
+                " " +
+                aluguel.aluPropietario.usuPerId.perApellido
+                : "Aluguel De " +
+                aluguel.aluInquilino.usuPerId.perNombre +
+                " " +
+                aluguel.aluInquilino.usuPerId.perApellido
+                }}
+            </h2>
+            <p class="mt-2 text-lg text-gray-700 dark:text-gray-400">
+                Endereço: {{ aluguel.aluEndereco }}
+            </p>
+            <p class="mt-2 text-lg text-gray-700 dark:text-gray-400">
+                Valor Do Aluguel: {{ 'R$'+aluguel.aluValor }}
+            </p>
+            <p *ngIf="rol != 'Administrador' " class="mt-2 text-lg text-gray-700 dark:text-gray-400">
+                Própietario:
+                {{
+                aluguel.aluPropietario.usuPerId.perNombre +
+                " " +
+                aluguel.aluPropietario.usuPerId.perApellido
+                }}
+            </p>
+            <p class="mt-2 text-lg text-gray-700 dark:text-gray-400" *ngIf="rol == 'Administrador'">
+                Inquilino:
+                {{
+                aluguel.aluInquilino.usuPerId.perNombre +
+                " " +
+                aluguel.aluInquilino.usuPerId.perApellido
+                }}
+            </p>
+        </div>
+        <div class="mb-6">
+            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">
+                Fotos De Entrada
+            </h3>
+            <div class="grid grid-cols-2 gap-4 mt-2">
+                <img src="https://placehold.co/300x200" alt="Photo 1" class="rounded-lg shadow-lg" />
+                <img src="https://placehold.co/300x200" alt="Photo 2" class="rounded-lg shadow-lg" />
+                <img src="https://placehold.co/300x200" alt="Photo 3" class="rounded-lg shadow-lg" />
+                <img src="https://placehold.co/300x200" alt="Photo 4" class="rounded-lg shadow-lg" />
+            </div>
+        </div>
+        <div class="mb-6">
+            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">
+                Fotos De Saída
+            </h3>
+            <div class="grid grid-cols-2 gap-4 mt-2">
+                <img src="https://placehold.co/300x200" alt="Photo 1" class="rounded-lg shadow-lg" />
+                <img src="https://placehold.co/300x200" alt="Photo 2" class="rounded-lg shadow-lg" />
+                <img src="https://placehold.co/300x200" alt="Photo 3" class="rounded-lg shadow-lg" />
+                <img src="https://placehold.co/300x200" alt="Photo 4" class="rounded-lg shadow-lg" />
+            </div>
+        </div>
+        <div class="mb-6" [hidden]="aluguel.aluComprovante">
+            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">
+                Carregar comprovante de pagamento
+            </h3>
+            <div class="btnFotoUser">
+                <label for="upload{{ aluguel.aluId }}" class="file-upload-label">
+                    <input type="file" name="upload{{ aluguel.aluId }}" (change)="onFileChange(aluguel.aluId, $event)"
+                        [(ngModel)]="aluguel.aluComprovante" id="upload{{ aluguel.aluId }}" class="upload-box"
+                        placeholder="Upload File" style="display: none;">
+                    <img class="imgUpload" src="assets/imgs/subir.png" width="30px" alt="">
+                </label>
+            </div>
+        </div>
+    </div>
 </div>
 <app-buttom-menu></app-buttom-menu>

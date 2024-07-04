@@ -248,22 +248,35 @@ export class CadastroComponent implements OnInit {
   }
 
   registrar() {
-    this.aluguelService.registrarAluguel(this.aluguel).subscribe(() => {
-      Swal.fire({
-        title: '¡Registro bem-sucedido!',
-        text: `Aluguel adicionado com sucesso`,
-        icon: 'success',
-        confirmButtonText: 'Confirme',
-        showCancelButton: false, // No mostrar el botón de cancelar
-      }).then(() => {
-        this.limpiarRegistro();
-        this.router.navigate(['/cadastro']);
-      });
+    this.aluguelService.inquilinoUnico(this.aluguel.aluInquilino.usuId).subscribe((response) => {
+      if (response) {
+        this.aluguel.aluEstado = 1;
+        this.aluguelService.registrarAluguel(this.aluguel).subscribe(() => {
+          Swal.fire({
+            title: '¡Registro bem-sucedido!',
+            text: `Aluguel adicionado com sucesso`,
+            icon: 'success',
+            confirmButtonText: 'Confirme',
+            showCancelButton: false, // No mostrar el botón de cancelar
+          }).then(() => {
+            this.limpiarRegistro();
+            this.router.navigate(['/alugueis']);
+          });
+        })
+      } else {
+        this.toastr.error('O inquilino que você está tentando selecionar já possui um aluguel em seu nome.', 'Erro ao cadastrar imóvel')
+      }
     })
   }
 
   limpiarRegistro() {
     this.Usuario = new Usuario();
     this.aluguel = new Aluguel();
+    this.base64StringContrato = '';
+    this.base64StringEntrada = '';
+    this.base64StringSaida = '';
+    this.selectedFileEntrada = undefined;
+    this.selectedFileContrato = undefined;
+    this.selectedFileSaida = undefined;
   }
 }

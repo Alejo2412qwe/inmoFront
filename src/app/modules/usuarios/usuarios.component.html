@@ -1,5 +1,18 @@
 <app-loading-screen [isLoading]="isLoading"></app-loading-screen>
 <div *ngIf="isLoading == false">
+    <div class="search-container">
+        <input type="text" [(ngModel)]="searchString"
+            placeholder="Pesquise por CPF, nome, sobrenome, nome de usuário ou telefone..."
+            title="Pesquise por ID, nome, sobrenome, nome de usuário ou telefone..."
+            (input)="searchUser(searchString, estList)" />
+        <label>
+            <input type="checkbox" class="ios-switch green  bigswitch" [(ngModel)]="estList"
+                (change)="cambiarEstList(estList ? 1 : 0)" />
+            <div>
+                <div></div>
+            </div>
+        </label>
+    </div>
     <table>
         <thead>
             <tr>
@@ -9,6 +22,7 @@
                 <th>Nome Completo</th>
                 <th>Telefone</th>
                 <th>Função</th>
+                <th>OPÇÃO</th>
             </tr>
         </thead>
         <tbody>
@@ -25,12 +39,44 @@
                 <td>{{user.usuPerId.perNombre + ' '+user.usuPerId.perApellido}}</td>
                 <td>{{'+55 '+user.usuPerId.perTelefono}}</td>
                 <td>{{user.rolId.rolNombre}}</td>
+                <td>
+                    <button role="button" class="button-name2" *ngIf="user.usuEstado ===1"
+                        (click)="updateEstUser(user.usuId,0)">
+                        <svg height="1.25em"
+                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+                            version="1.1" viewBox="0 0 24 24" width="100%" xml:space="preserve"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Icon">
+                                <path
+                                    d="M4.251,9.031c-0,0 0.194,4.655 0.34,8.167c0.106,2.544 2.199,4.552 4.746,4.552c1.68,-0 3.646,-0 5.326,-0c2.547,0 4.64,-2.008 4.746,-4.552c0.146,-3.512 0.34,-8.167 0.34,-8.167c0.018,-0.413 -0.304,-0.763 -0.718,-0.78c-0.413,-0.018 -0.763,0.304 -0.78,0.718c-0,-0 -0.194,4.655 -0.341,8.166c-0.072,1.741 -1.505,3.115 -3.247,3.115c-1.68,-0 -3.646,-0 -5.326,-0c-1.742,0 -3.175,-1.374 -3.247,-3.115c-0.147,-3.511 -0.341,-8.166 -0.341,-8.166c-0.017,-0.414 -0.367,-0.736 -0.78,-0.718c-0.414,0.017 -0.736,0.367 -0.718,0.78Z" />
+                                <path
+                                    d="M7.459,5.25l0.374,-1.12c0.374,-1.123 1.425,-1.88 2.609,-1.88c0.944,-0 2.172,-0 3.116,-0c1.184,-0 2.235,0.757 2.609,1.88l0.374,1.12l3.459,-0c0.414,-0 0.75,0.336 0.75,0.75c0,0.414 -0.336,0.75 -0.75,0.75l-16,-0c-0.414,-0 -0.75,-0.336 -0.75,-0.75c0,-0.414 0.336,-0.75 0.75,-0.75l3.459,-0Zm7.5,-0l-0.215,-0.645c-0.17,-0.511 -0.647,-0.855 -1.186,-0.855c-0.944,-0 -2.172,-0 -3.116,-0c-0.539,-0 -1.016,0.344 -1.186,0.855l-0.215,0.645l5.918,-0Z" />
+                                <path
+                                    d="M9.25,11l0,5c0,0.414 0.336,0.75 0.75,0.75c0.414,-0 0.75,-0.336 0.75,-0.75l0,-5c0,-0.414 -0.336,-0.75 -0.75,-0.75c-0.414,-0 -0.75,0.336 -0.75,0.75Z" />
+                                <path
+                                    d="M13.25,11l0,5c-0,0.414 0.336,0.75 0.75,0.75c0.414,0 0.75,-0.336 0.75,-0.75l0,-5c-0,-0.414 -0.336,-0.75 -0.75,-0.75c-0.414,0 -0.75,0.336 -0.75,0.75Z" />
+                            </g>
+                        </svg>
+                    </button>
+                    <button role="button" class="button-name3" *ngIf="user.usuEstado ===0"
+                        (click)="updateEstUser(user.usuId,1)">
+                        <svg height="1.25em" enable-background="new 0 0 64 64" version="1.1" viewBox="0 0 64 64"
+                            xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Glyph_copy_2">
+                                <path
+                                    d="M32,64c17.645,0,32-14.355,32-32S49.645,0,32,0S0,14.355,0,32S14.355,64,32,64z M19.538,30.269l6.954,6.869L43.04,16.72   l5.092,4.491L27.029,47.247L14.953,35.322L19.538,30.269z" />
+                            </g>
+                        </svg>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
-    <div style="position: fixed; top: 80%; left: 50%; transform: translateX(-50%);">
-        <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Seguinte"
-            class="my-pagination"></pagination-controls>
-    </div>
+</div>
+<div style="display: flex; justify-content: center; position: relative; bottom: 0; margin-top: 1%; width: 100%;">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Seguinte"
+        class="my-pagination"></pagination-controls>
 </div>
 <app-buttom-menu></app-buttom-menu>

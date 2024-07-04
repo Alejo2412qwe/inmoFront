@@ -38,6 +38,79 @@ export class AluguelService {
         });
     }
 
+    updateContrato(id: number, con: string): Observable<void> {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+        });
+
+        return this.http.put<void>(
+            `${this.url}/updateContrato?id=${id}`,
+            con,
+            { headers }
+        );
+    }
+
+
+    getSumaValores(est: number): Observable<number> {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+        });
+
+        return this.http.get<number>(
+            `${this.url}/getSumaValores?est=${est}`,
+            { headers }
+        );
+    }
+
+    updateComprovante(id: number, com: string): Observable<void> {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+        });
+
+        return this.http.put<void>(
+            `${this.url}/updateComprovante?id=${id}`,
+            com,
+            { headers }
+        );
+    }
+
+    allAlugueisData(est: number) {
+        // Construir el encabezado de autorización
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+        });
+
+        // Realiza la solicitud HTTP con el encabezado de autorización
+        return this.http.get<Aluguel[]>(`${this.url}/allAlugueisData?est=${est}`, {
+            headers,
+        });
+    }
+
+    searchAluguel(search: string, est: number) {
+        // Construir el encabezado de autorización
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+        });
+
+        // Realiza la solicitud HTTP con el encabezado de autorización
+        return this.http.get<Aluguel[]>(
+            `${this.url}/searchAluguelData?search=${search}&est=${est}`,
+            { headers }
+        );
+    }
+
+    findByAluId(id: number) {
+        // Construir el encabezado de autorización
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+        });
+
+        // Realiza la solicitud HTTP con el encabezado de autorización
+        return this.http.get<Aluguel>(`${this.url}/findByAluId?id=${id}`, {
+            headers,
+        });
+    }
+
     getAluguelByInquilino(id: number) {
 
         // Construir el encabezado de autorización
@@ -63,5 +136,25 @@ export class AluguelService {
         // Realiza la solicitud HTTP con el encabezado de autorización
         return this.http.get<Aluguel[]>(`${this.url}/read`, { headers });
 
+    }
+
+    getCantidadAluguels() {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+        });
+
+        return this.http.get<number>(`${this.url}/cantidadAluguels`, {
+            headers,
+        });
+    }
+
+    inquilinoUnico(id: number) {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+        });
+
+        return this.http.get<boolean>(`${this.url}/inquilinoUnico?id=${id}`, {
+            headers,
+        });
     }
 }

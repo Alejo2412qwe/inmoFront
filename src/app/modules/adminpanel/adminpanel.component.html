@@ -1,0 +1,59 @@
+<body>
+    <section class="navigation">
+        <p class="title">
+            Imóveis Portal CIC
+        </p>
+        <p class="name">
+            Proprietário Da Empresa
+        </p>
+        <p>
+            <img class="profile-pic"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQurna6a42SpKe38ovPipim3STLIjTlU0uXuw&usqp=CAU"
+                alt="Profile Pic">
+        </p>
+        <p class="name">
+            Bill Gates
+        </p>
+    </section>
+
+    <section class="page-content">
+        <div class="content">
+
+            <div class="row">
+                <div class="column">
+                    <a><i class="fas fa-user fa-3x"></i>
+                        <h2><strong>Total De Usuários</strong></h2>
+                    </a>
+                    <p class="data">{{usuarios}}</p>
+                </div>
+                <div class="column">
+                    <a><i class="fas fa-home fa-3x"></i>
+                        <h2><strong>Total De Alugueis</strong></h2>
+                    </a>
+                    <p class="data">{{aluguels}}</p>
+                </div>
+            </div>
+            <div class="full-width">
+                <div class="total">
+                    <a><i class="fas fa-money-bill-wave fa-3x"></i>
+                        <h2><strong>Valor total do aluguel</strong></h2>
+                    </a>
+                    <p class="valor">{{'R$'+suma}}</p>
+                </div>
+                <div class="desconto">
+                    <a>
+                        <i class="fas fa-percentage fa-3x"></i>
+                        <select class="select-custom" [(ngModel)]="selectedDiscount" (change)="updateDiscount()">
+                            <option [disabled]="true" value="0">Selecione uma opção</option>
+                            <option *ngFor="let percent of discountOptions" [value]="percent">{{ percent }}%</option>
+                        </select>
+                        <h2><strong>Valor total em <span>{{ selectedDiscount }}%</span></strong></h2>
+                    </a>
+                    <p class="valor">{{'R$' + desconto}}</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</body>
+<app-buttom-menu></app-buttom-menu>
