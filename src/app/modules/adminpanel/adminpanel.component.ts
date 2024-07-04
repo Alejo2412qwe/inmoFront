@@ -62,7 +62,7 @@ export class AdminpanelComponent implements OnInit {
   showMensajeBienvendia() {
     Swal.fire({
       title: 'BEM-VINDO, PROPRIETÁRIO DA EMPRESA',
-      text: 'Aqui você pode visualizar dados importantes para você!',
+      text: 'Imóveis Portal CIC diz olá, aqui você pode visualizar dados importantes para você!',
       imageUrl: 'assets/imgs/inmoLOGO.jpeg',
       imageWidth: 400,
       imageHeight: 200,

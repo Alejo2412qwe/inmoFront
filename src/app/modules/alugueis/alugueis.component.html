@@ -1,10 +1,8 @@
 <app-loading-screen [isLoading]="isLoading"></app-loading-screen>
 <div *ngIf="isLoading == false">
     <div class="search-container">
-        <input type="text" [(ngModel)]="searchString"
-            placeholder="Pesquise por nome, sobrenome, ou endereço..."
-            title="Pesquise por nome, sobrenome, ou endereço..."
-            (input)="searchAluguel(searchString, estList)" />
+        <input type="text" [(ngModel)]="searchString" placeholder="Pesquise por nome, sobrenome, ou endereço..."
+            title="Pesquise por nome, sobrenome, ou endereço..." (input)="searchAluguel(searchString, estList)" />
         <label>
             <input type="checkbox" class="ios-switch green  bigswitch" [(ngModel)]="estList"
                 (change)="cambiarEstList(estList ? 1 : 0)" />
@@ -26,8 +24,7 @@
                 <th>Foto De Historial De Entrada</th>
                 <th>Foto De Historial De Saída</th>
                 <th>Contrato</th>
-                <th *ngIf="rol == 'Administrador'">Comprovante De Pagamento</th>
-                <th>Status De Pagamento</th>
+                <th>Comprovante</th>
                 <th *ngIf="rol == 'Administrador'">Status De Aluguel</th>
                 <th *ngIf="rol == 'Administrador'">Ver mais</th>
             </tr>
@@ -102,19 +99,16 @@
                         </button>
                     </div>
                 </td>
-                <td class="tdTbl" *ngIf="rol == 'Administrador'">
-                    <ng-container *ngIf="alugue.aluComprovante; else noInfo">
-                        <button role="button" class="button-name" (click)="previewBase64PDF(alugue.aluComprovante, 'Comprovante_'+
-                            alugue.aluInquilino.usuPerId.perNombre+' '+alugue.aluInquilino.usuPerId.perApellido)">
-                            <i class="fa fa-regular fa-eye fa-2x"></i>
-                        </button>
-                    </ng-container>
-                    <ng-template #noInfo>
-                        Sem Comprovante
-                    </ng-template>
-                </td>
                 <td>
-                    {{alugue.aluComprovante?'Pago':'Não Pago'}}
+                    <button class="BtnDown" title="Descarga"
+                        (click)="downloadComprovante(alugue.aluId,('comprovante_'+alugue.aluEndereco))">
+                        <svg class="svgIcon" viewBox="0 0 384 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                            </path>
+                        </svg>
+                        <span class="icon2"></span>
+                    </button>
                 </td>
                 <td *ngIf="rol == 'Administrador'">
                     {{alugue.aluEstado == 1?'Ativo':'Inativo'}}

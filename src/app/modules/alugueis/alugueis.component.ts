@@ -3,7 +3,9 @@ import { ToastrService } from 'ngx-toastr';
 import { base64PDFpreview, decodeBase64Download, decodeBase64PDF } from 'src/app/common/base64';
 import { USER } from 'src/app/common/img64';
 import { Aluguel } from 'src/app/models/aluguel';
+import { Comprovante } from 'src/app/models/comprovante';
 import { AluguelService } from 'src/app/services/aluguel.service';
+import { ComprovanteService } from 'src/app/services/comprovante.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 @Component({
@@ -15,12 +17,14 @@ export class AlugueisComponent implements OnInit {
 
   constructor(private aluguelService: AluguelService,
     private toastr: ToastrService,
-    private sessionStorage: SessionStorageService) { }
+    private sessionStorage: SessionStorageService,
+    private comprovanteService: ComprovanteService) { }
 
   isLoading: boolean = true;
   page!: number;
 
   listAluguel: Aluguel[] = []
+  comprovante: Comprovante = new Comprovante();
 
   estList: number = 1;
   userImg = USER
@@ -72,8 +76,14 @@ export class AlugueisComponent implements OnInit {
     decodeBase64PDF(base64Data, name, this.toastr)
   }
 
-  previewBase64PDF(base64: string, filename: string) {
-    base64PDFpreview(base64, filename)
+  downloadComprovante(id: number, filename: string) {
+    this.comprovanteService.getComprovanteByComFechaRegistro(id).subscribe((data) => {
+      if (data) {
+        this.downloadImage(data.comComprovante, filename);
+      } else {
+        this.toastr.warning('Nenhum recibo foi encontrado.', 'AVISO');
+      }
+    })
   }
 
   searchAluguel(search: string, est: number) {

@@ -28,7 +28,7 @@
                 </div>
                 <div class="column">
                     <a><i class="fas fa-home fa-3x"></i>
-                        <h2><strong>Total De Alugueis</strong></h2>
+                        <h2><strong>Total De Aluguéis</strong></h2>
                     </a>
                     <p class="data">{{aluguels}}</p>
                 </div>
@@ -36,7 +36,7 @@
             <div class="full-width">
                 <div class="total">
                     <a><i class="fas fa-money-bill-wave fa-3x"></i>
-                        <h2><strong>Valor total do aluguel</strong></h2>
+                        <h2><strong>Valor Total Dos Aluguéis</strong></h2>
                     </a>
                     <p class="valor">{{'R$'+suma}}</p>
                 </div>
@@ -47,7 +47,7 @@
                             <option [disabled]="true" value="0">Selecione uma opção</option>
                             <option *ngFor="let percent of discountOptions" [value]="percent">{{ percent }}%</option>
                         </select>
-                        <h2><strong>Valor total em <span>{{ selectedDiscount }}%</span></strong></h2>
+                        <h2><strong>Valor Total Em <span>{{ selectedDiscount }}%</span></strong></h2>
                     </a>
                     <p class="valor">{{'R$' + desconto}}</p>
                 </div>

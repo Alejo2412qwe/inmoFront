@@ -60,15 +60,16 @@
                 <img src="https://placehold.co/300x200" alt="Photo 4" class="rounded-lg shadow-lg" />
             </div>
         </div>
-        <div class="mb-6" [hidden]="aluguel.aluComprovante">
+        <div class="mb-6" [hidden]="comprovante.comComprovante">
             <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">
                 Carregar comprovante de pagamento
             </h3>
             <div class="btnFotoUser">
-                <label for="upload{{ aluguel.aluId }}" class="file-upload-label">
-                    <input type="file" name="upload{{ aluguel.aluId }}" (change)="onFileChange(aluguel.aluId, $event)"
-                        [(ngModel)]="aluguel.aluComprovante" id="upload{{ aluguel.aluId }}" class="upload-box"
-                        placeholder="Upload File" style="display: none;">
+                <label for="upload{{ comprovante.comId }}" class="file-upload-label">
+                    <input type="file" name="upload{{ comprovante.comId }}"
+                        (change)="onFileChange(comprovante.comId, $event)" [(ngModel)]="comprovante.comComprovante"
+                        id="upload{{ comprovante.comId }}" class="upload-box" placeholder="Upload File"
+                        style="display: none;" accept="image/*">
                     <img class="imgUpload" src="assets/imgs/subir.png" width="30px" alt="">
                 </label>
             </div>

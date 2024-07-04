@@ -5,21 +5,29 @@
             class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Usuários</h5>
             <p class="font-normal text-gray-700 dark:text-gray-400">
-                Aqui você pode gerenciar os usuários que estão cadastrados no sistema
+                Gerenciar os usuários que estão cadastrados no sistema
             </p>
         </a>
         <a [routerLink]="route()"
             class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Imóveis</h5>
-            <p class="font-normal text-gray-700 dark:text-gray-400">Aqui você pode visualizar e gerenciar mais
+            <p class="font-normal text-gray-700 dark:text-gray-400">Visualizar e gerenciar mais
                 informações sobre os imóveis cadastrados no sistema
+            </p>
+        </a>
+        <a *ngIf="rol == 'Administrador'" [routerLink]="['/comprovantes']"
+            class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Comprovantes De Pagamento
+            </h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+                Consultar os recibos de pagamento de todos os inquilinos.
             </p>
         </a>
         <a *ngIf="rol == 'Administrador'" [routerLink]="['/usuarios']"
             class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Fazer Contrato</h5>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Contratos</h5>
             <p class="font-normal text-gray-700 dark:text-gray-400">
-
+                Fazer um contrato nunca foi tão simples com este sistema!
             </p>
         </a>
     </div>
