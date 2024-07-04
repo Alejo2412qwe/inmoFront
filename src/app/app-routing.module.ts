@@ -13,7 +13,14 @@ import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminpanelComponent },
+  {
+    path: 'nav', component: NavComponent
+  },
+  {
+    path: 'admin', component: AdminpanelComponent,
+    /*canActivate: [AuthGuard],
+    data: { expectedRoles: ['Dono'] }*/
+  },
   {
     path: 'cadUsuarios', component: CadUsuarioComponent,
     canActivate: [AuthGuard],
@@ -27,12 +34,6 @@ const routes: Routes = [
   {
     path: 'cadastro',
     component: CadastroComponent,
-    canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Empleado'] }
-  },
-  {
-    path: 'nav',
-    component: NavComponent,
     canActivate: [AuthGuard],
     data: { expectedRoles: ['Administrador', 'Empleado'] }
   },

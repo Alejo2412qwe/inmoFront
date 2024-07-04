@@ -26,16 +26,30 @@ export class AlugueisComponent implements OnInit {
   userImg = USER
   searchString: string = '';
 
+  selectedFile: File | null = null;
+  base64Image: any;
+  base64String: string = '';
+
   rol: string = this.sessionStorage.getItem('rol') || '';
 
   ngOnInit(): void {
     this.loadData();
   }
 
+  loadAlugueis(est: number) {
+    if (est === 0 || est === 1) {
+      this.aluguelService.allAlugueisData(est).subscribe((response) => {
+        this.listAluguel = response;
+      });
+    } else {
+      console.error('El valor de "est" debe ser 0 o 1.');
+    }
+  }
+
   loadData() {
     const dataLoadPromise = new Promise<void>((resolve) => {
       setTimeout(() => {
-        this.loadAlugueis();
+        this.loadAlugueis(this.estList);
         resolve();
       }, 2000);
     });
@@ -44,8 +58,9 @@ export class AlugueisComponent implements OnInit {
     });
   }
 
-  loadAlugueis() {
-    this.aluguelService.getAllAlugueis().subscribe((data) => { this.listAluguel = data })
+  cambiarEstList(est: number) {
+    this.estList = est
+    this.loadAlugueis(this.estList)
   }
 
   downloadImage(base64Data: string, name: string) {
@@ -66,6 +81,41 @@ export class AlugueisComponent implements OnInit {
       this.listAluguel = response;
 
     });
+  }
+
+  onFileChange(id: number, event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      this.convertToBase64(id);
+    }
+  }
+
+  convertToBase64(id: number) {
+    if (!this.selectedFile) {
+      console.error('No file selected.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      this.aluguelService.updateContrato(id, base64String).subscribe(
+        () => {
+          this.toastr.success("Contrato enviado com sucesso.", "SUCESSO")
+          const alugue = this.listAluguel.find(a => a.aluId === id);
+          if (alugue) {
+            alugue.aluContrato = base64String;
+          }
+          this.selectedFile = null;
+          this.base64String = '';
+        },
+        (error) => {
+          this.toastr.error(error, 'Erro ao atualizar o comprovante de pagamento.');
+        }
+      );
+    };
   }
 
 }

@@ -32,6 +32,10 @@
             <label for="email">Dia De Pagamento (*) </label>
             <input name="ffatanasc" type="number" id="tabla" [(ngModel)]="aluguel.aluDiaPago">
 
+            <label for="endereço">Valor do inmovel(*)</label>
+            <input placeholder="Digite o valor do inmovel..." name="fvalor" type="number" id="tabla"
+                [(ngModel)]="aluguel.aluValor">
+
             <label for="fotoEntrada">Foto De Historial De Entrada (*)</label>
             <div class="upload-wrapper">
                 <input type="file" name="uploadEntrada" (change)="onFileChangeEntrada($event)" id="uploadEntrada"
@@ -46,16 +50,12 @@
                 <button *ngIf="aluguel.aluFotoSaida" type="button" (click)="removeSaida()">Excluir</button>
             </div>
 
-            <label for="contrato">Contrato (*)</label>
+            <label for="contrato">Contrato</label>
             <div class="upload-wrapper">
                 <input type="file" name="uploadContrato" (change)="onFileChangeContrato($event)" id="contrato"
                     class="upload-box" placeholder="Upload File">
                 <button *ngIf="aluguel.aluContrato" type="button" (click)="removeContrato()">Excluir</button>
             </div>
-
-            <label for="endereço">Valor do inmovel(*)</label>
-            <input placeholder="Digite o valor do inmovel..." name="fvalor" type="number" id="tabla"
-                [(ngModel)]="aluguel.aluValor">
 
         </div>
         <button name="registro" id="button" (click)="registrar()"> ¡Cadastrar! </button>

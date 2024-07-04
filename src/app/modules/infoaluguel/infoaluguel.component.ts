@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Aluguel } from 'src/app/models/aluguel';
 import { AluguelService } from 'src/app/services/aluguel.service';
 import { EmailService } from 'src/app/services/emai.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-infoaluguel',
@@ -17,7 +18,7 @@ export class InfoaluguelComponent implements OnInit {
     private toastr: ToastrService,
     private sessionStorage: SessionStorageService,
     private emailService: EmailService,
-    private activatedRoute: ActivatedRoute,) { }
+    private activatedRoute: ActivatedRoute, private router: Router,) { }
 
   isLoading: boolean = true;
   aluguel: Aluguel = new Aluguel();
@@ -52,7 +53,24 @@ export class InfoaluguelComponent implements OnInit {
   getAluguel() {
     if (this.rol == 'Inquilino') {
       this.aluguelService.getAluguelByInquilino(this.userId).subscribe((data) => {
-        this.aluguel = data
+        if (data) {
+          this.aluguel = data
+        } else {
+          Swal.fire({
+            title: "<strong>Ops!</strong>",
+            icon: "info",
+            html: `
+            Mil desculpas, você ainda não tem aluguel aqui.<br>
+            `,
+            focusConfirm: false,
+            confirmButtonText: `
+              <i class="fa fa-thumbs-up"></i> OK!
+            `
+          }).then(() => {
+            this.router.navigate(['/login']);
+            this.sessionStorage.removeItem('userData')
+          });;
+        }
       })
     } else {
       this.aluguelService.findByAluId(this.idAluguel).subscribe((data) => {
@@ -81,7 +99,7 @@ export class InfoaluguelComponent implements OnInit {
       const base64String = reader.result as string;
       const aluId = id;
       this.aluguelService.updateComprovante(aluId, base64String).subscribe(
-        (response) => {
+        () => {
           this.toastr.success("Prova enviada com sucesso.", "SUCESSO")
           this.aluguelService.findByAluId(id).subscribe((data) => {
             const mensaje = data.aluInquilino.usuPerId.perNombre + ' ' + data.aluInquilino.usuPerId.perApellido + ' carregou o comprovante de pagamento de seu aluguel.'
@@ -94,7 +112,7 @@ export class InfoaluguelComponent implements OnInit {
           }, 1000);
         },
         (error) => {
-          this.toastr.error('Erro ao atualizar o comprovante de pagamento.', 'Erro');
+          this.toastr.error(error, 'Erro ao atualizar o comprovante de pagamento.');
         }
       );
     };
@@ -102,7 +120,7 @@ export class InfoaluguelComponent implements OnInit {
 
   sendEmailNotification(mensaje: string) {
     this.emailService.sendEmail(mensaje).subscribe(
-      response => console.log('Email enviado correctamente'),
+      () => console.log('Email enviado correctamente'),
       error => console.error('Error al enviar el email:', error)
     );
   }

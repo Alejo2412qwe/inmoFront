@@ -10,6 +10,12 @@
         <i class="fas fa-arrow-up"></i>
     </div>
     <ul class="fab-options">
+        <li >
+            <span class="fab-label">Ir ao painel administrativo</span>
+            <div class="fab-icon-holder">
+                <a [routerLink]="['/admin']"><i class="fas fa-home"></i></a>
+            </div>
+        </li>
         <li *ngIf="currentRoute == '/usuarios' || currentRoute == '/alugueis' && rol =='Administrador'">
             <span class="fab-label">{{currentRoute=='/usuarios' ? 'Adicionar Usuário' : 'Adicionar Aluguel'}}</span>
             <div class="fab-icon-holder">

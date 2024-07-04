@@ -4,6 +4,7 @@ import { decodeBase64Download, decodeBase64PDF } from 'src/app/common/base64';
 import { USER } from 'src/app/common/img64';
 import { Usuario } from 'src/app/models/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -64,6 +65,47 @@ export class UsuariosComponent implements OnInit {
     this.UsuarioService.searchUsersData(search, est).subscribe((response) => {
       this.listaUsuarios = response;
 
+    });
+  }
+
+  cambiarEstList(est: number) {
+    this.estList = est
+    this.loadUsers(this.estList)
+  }
+
+  updateEstUser(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'desativar'
+    } else {
+      mensaje = 'activar'
+    }
+    Swal.fire({
+      title: `Tem certeza de que deseja ${mensaje} o usuário?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.UsuarioService.updateEst(id, est).subscribe({
+          next: () => {
+            this.loadUsers(est)
+            this.estList = est;
+            if (est === 0) {
+              this.toastr.success('DESATIVADO COM SUCESSO', 'SUCESSO');
+            } else {
+              this.toastr.success('ATIVADO CORRETAMENTE', 'SUCESSO');
+            }
+          },
+          error: (error) => {
+            // Manejar errores
+          },
+          complete: () => {
+            // Manejar completado
+          }
+        });
+      }
     });
   }
 
