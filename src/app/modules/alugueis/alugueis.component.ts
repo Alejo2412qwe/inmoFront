@@ -3,8 +3,11 @@ import { ToastrService } from 'ngx-toastr';
 import { base64PDFpreview, decodeBase64Download, decodeBase64PDF } from 'src/app/common/base64';
 import { USER } from 'src/app/common/img64';
 import { Aluguel } from 'src/app/models/aluguel';
+import { Comprovante } from 'src/app/models/comprovante';
 import { AluguelService } from 'src/app/services/aluguel.service';
+import { ComprovanteService } from 'src/app/services/comprovante.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alugueis',
@@ -15,12 +18,14 @@ export class AlugueisComponent implements OnInit {
 
   constructor(private aluguelService: AluguelService,
     private toastr: ToastrService,
-    private sessionStorage: SessionStorageService) { }
+    private sessionStorage: SessionStorageService,
+    private comprovanteService: ComprovanteService) { }
 
   isLoading: boolean = true;
   page!: number;
 
   listAluguel: Aluguel[] = []
+  comprovante: Comprovante = new Comprovante();
 
   estList: number = 1;
   userImg = USER
@@ -72,14 +77,56 @@ export class AlugueisComponent implements OnInit {
     decodeBase64PDF(base64Data, name, this.toastr)
   }
 
-  previewBase64PDF(base64: string, filename: string) {
-    base64PDFpreview(base64, filename)
+  downloadComprovante(id: number, filename: string) {
+    this.comprovanteService.getComprovanteByComFechaRegistro(id).subscribe((data) => {
+      if (data) {
+        this.downloadImage(data.comComprovante, filename);
+      } else {
+        this.toastr.warning('Nenhum recibo foi encontrado.', 'AVISO');
+      }
+    })
   }
 
   searchAluguel(search: string, est: number) {
     this.aluguelService.searchAluguel(search, est).subscribe((response) => {
       this.listAluguel = response;
 
+    });
+  }
+
+  updateEstAluguel(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'desativar'
+    } else {
+      mensaje = 'activar'
+    }
+    Swal.fire({
+      title: `Tem certeza de que deseja ${mensaje} o usuário?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.aluguelService.updateEst(id, est).subscribe({
+          next: () => {
+            this.loadAlugueis(est)
+            this.estList = est;
+            if (est === 0) {
+              this.toastr.success('DESATIVADO COM SUCESSO', 'SUCESSO');
+            } else {
+              this.toastr.success('ATIVADO CORRETAMENTE', 'SUCESSO');
+            }
+          },
+          error: (error) => {
+            // Manejar errores
+          },
+          complete: () => {
+            // Manejar completado
+          }
+        });
+      }
     });
   }
 

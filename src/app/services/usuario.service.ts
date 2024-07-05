@@ -67,7 +67,6 @@ export class UsuarioService {
     );
   }
 
-
   searchUsersCI(search: string, est: number) {
     // Construir el encabezado de autorización
     const headers = new HttpHeaders({
@@ -131,6 +130,14 @@ export class UsuarioService {
     );
   }
 
+  senhaDono(senha: string): Observable<boolean> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+    });
+
+    return this.http.get<boolean>(`${this.url}/senhaDono?senha=${senha}`, { headers });
+  }
+
   updateSaldo(id: number, saldo: number): Observable<void> {
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({
@@ -165,7 +172,6 @@ export class UsuarioService {
       { headers }
     );
   }
-
 
   getCantidadUsuarios() {
     const headers = new HttpHeaders({

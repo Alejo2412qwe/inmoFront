@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Aluguel } from 'src/app/models/aluguel';
+import { Comprovante } from 'src/app/models/comprovante';
 import { AluguelService } from 'src/app/services/aluguel.service';
+import { ComprovanteService } from 'src/app/services/comprovante.service';
 import { EmailService } from 'src/app/services/emai.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import Swal from 'sweetalert2';
@@ -14,14 +16,18 @@ import Swal from 'sweetalert2';
 })
 export class InfoaluguelComponent implements OnInit {
 
-  constructor(private aluguelService: AluguelService,
+  constructor(
+    private aluguelService: AluguelService,
     private toastr: ToastrService,
     private sessionStorage: SessionStorageService,
     private emailService: EmailService,
-    private activatedRoute: ActivatedRoute, private router: Router,) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private comprovanteService: ComprovanteService) { }
 
   isLoading: boolean = true;
   aluguel: Aluguel = new Aluguel();
+  comprovante: Comprovante = new Comprovante();
 
   userId: number = this.sessionStorage.getItem('userId') || 0;
   rol: string = this.sessionStorage.getItem('rol') || '';
@@ -97,24 +103,20 @@ export class InfoaluguelComponent implements OnInit {
     reader.readAsDataURL(this.selectedFile);
     reader.onload = () => {
       const base64String = reader.result as string;
-      const aluId = id;
-      this.aluguelService.updateComprovante(aluId, base64String).subscribe(
-        () => {
+      this.comprovante.aluId = this.aluguel
+      this.comprovante.comComprovante = base64String;
+      this.comprovanteService.registrarComprovante(this.comprovante).subscribe((response) => {
+        if (response) {
           this.toastr.success("Prova enviada com sucesso.", "SUCESSO")
-          this.aluguelService.findByAluId(id).subscribe((data) => {
-            const mensaje = data.aluInquilino.usuPerId.perNombre + ' ' + data.aluInquilino.usuPerId.perApellido + ' carregou o comprovante de pagamento de seu aluguel.'
-            this.sendEmailNotification(mensaje);
-          })
+          const mensaje = this.aluguel.aluInquilino.usuPerId.perNombre + ' ' + this.aluguel.aluInquilino.usuPerId.perApellido + ' carregou o comprovante de pagamento de seu aluguel.'
+          this.sendEmailNotification(mensaje);
           this.selectedFile = null;
           this.base64String = '';
           setTimeout(() => {
             window.location.reload();
           }, 1000);
-        },
-        (error) => {
-          this.toastr.error(error, 'Erro ao atualizar o comprovante de pagamento.');
         }
-      );
+      })
     };
   }
 

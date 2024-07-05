@@ -9,6 +9,7 @@ import { AlugueisComponent } from './modules/alugueis/alugueis.component';
 import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component';
 import { InfoaluguelComponent } from './modules/infoaluguel/infoaluguel.component';
 import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
+import { ComprovantesComponent } from './modules/comprovantes/comprovantes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,6 +24,11 @@ const routes: Routes = [
   },
   {
     path: 'cadUsuarios', component: CadUsuarioComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador'] }
+  },
+  {
+    path: 'comprovantes', component: ComprovantesComponent,
     canActivate: [AuthGuard],
     data: { expectedRoles: ['Administrador'] }
   },

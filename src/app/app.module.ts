@@ -20,6 +20,7 @@ import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component
 import { InfoaluguelComponent } from './modules/infoaluguel/infoaluguel.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
+import { ComprovantesComponent } from './modules/comprovantes/comprovantes.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
     CadUsuarioComponent,
     InfoaluguelComponent,
     LoadingScreenComponent,
-    AdminpanelComponent
+    AdminpanelComponent,
+    ComprovantesComponent
   ],
   imports: [
     BrowserModule,
