@@ -7,6 +7,7 @@ import { Comprovante } from 'src/app/models/comprovante';
 import { AluguelService } from 'src/app/services/aluguel.service';
 import { ComprovanteService } from 'src/app/services/comprovante.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alugueis',
@@ -90,6 +91,42 @@ export class AlugueisComponent implements OnInit {
     this.aluguelService.searchAluguel(search, est).subscribe((response) => {
       this.listAluguel = response;
 
+    });
+  }
+
+  updateEstAluguel(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'desativar'
+    } else {
+      mensaje = 'activar'
+    }
+    Swal.fire({
+      title: `Tem certeza de que deseja ${mensaje} o usuário?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.aluguelService.updateEst(id, est).subscribe({
+          next: () => {
+            this.loadAlugueis(est)
+            this.estList = est;
+            if (est === 0) {
+              this.toastr.success('DESATIVADO COM SUCESSO', 'SUCESSO');
+            } else {
+              this.toastr.success('ATIVADO CORRETAMENTE', 'SUCESSO');
+            }
+          },
+          error: (error) => {
+            // Manejar errores
+          },
+          complete: () => {
+            // Manejar completado
+          }
+        });
+      }
     });
   }
 

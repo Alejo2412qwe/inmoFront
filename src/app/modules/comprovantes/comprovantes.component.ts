@@ -32,11 +32,48 @@ export class ComprovantesComponent implements OnInit {
   selectedFile: File | null = null;
   base64Image: any;
   base64String: string = '';
+  timeToastr: number = 4000;
+
+  selectedDay: string = '';
+  selectedMonth: string = '';
+  selectedYear: string = '';
+
+  days: number[] = [];
+  months: { name: string, value: number }[] = [
+    { name: 'Janeiro', value: 1 },
+    { name: 'Fevereiro', value: 2 },
+    { name: 'Março', value: 3 },
+    { name: 'Abril', value: 4 },
+    { name: 'Maio', value: 5 },
+    { name: 'Junho', value: 6 },
+    { name: 'Julho', value: 7 },
+    { name: 'Agosto', value: 8 },
+    { name: 'Setembro', value: 9 },
+    { name: 'Outubro', value: 10 },
+    { name: 'Novembro', value: 11 },
+    { name: 'Dezembro', value: 12 },
+  ];
+  years: number[] = [];
 
   rol: string = this.sessionStorage.getItem('rol') || '';
 
   ngOnInit(): void {
-   this.loadData()
+    this.loadData();
+    this.populateDays();
+    this.populateYears();
+  }
+
+  populateDays() {
+    for (let i = 1; i <= 31; i++) {
+      this.days.push(i);
+    }
+  }
+
+  populateYears() {
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear; i >= currentYear - 100; i--) {
+      this.years.push(i);
+    }
   }
 
   loadData() {
@@ -61,6 +98,83 @@ export class ComprovantesComponent implements OnInit {
         this.listComprobante = data
       }
     })
+  }
+
+  validar(dia: number, mes: number, year: number): boolean {
+
+    if (!dia) {
+      this.toastr.warning(
+        'DIA é um campo obrigatório',
+        'AVISO',
+        {
+          timeOut: this.timeToastr,
+        }
+      );
+
+      return false;
+    }
+
+    if (!mes) {
+      this.toastr.warning(
+        'MÊS é um campo obrigatório',
+        'AVISO',
+        {
+          timeOut: this.timeToastr,
+        }
+      );
+
+      return false;
+    }
+
+    if (!year) {
+      this.toastr.warning(
+        'ANO é um campo obrigatório',
+        'AVISO',
+        {
+          timeOut: this.timeToastr,
+        }
+      );
+
+      return false;
+    }
+
+    return true;
+  }
+
+  search() {
+    let dia = parseInt(this.selectedDay)
+    let month = parseInt(this.selectedMonth)
+    let year = parseInt(this.selectedYear)
+    if (this.validar(dia, month, year)) {
+      this.comprovanteService.findComprovantesByFechaPartesAndInquilino(dia, month, year).subscribe((data) => {
+        if (data) {
+          this.listComprobante = this.filterComprovantes(data, this.searchString);
+        }
+      })
+    }
+  }
+
+  limpar() {
+    this.selectedDay = '';
+    this.selectedMonth = '';
+    this.selectedYear = '';
+    this.searchString = '';
+    this.getAllComprovantes();
+  }
+
+  filterComprovantes(comprovantes: Comprovante[], searchString: string): Comprovante[] {
+    if (!searchString) {
+      return comprovantes;
+    }
+
+    const lowerSearchString = searchString.toLowerCase();
+
+    return comprovantes.filter(comprovante =>
+      comprovante.aluId.aluInquilino.usuPerId.perNombre.toLowerCase().includes(lowerSearchString) ||
+      comprovante.aluId.aluInquilino.usuPerId.perApellido.toLowerCase().includes(lowerSearchString) ||
+      (comprovante.comFechaRegistro &&
+        new Date(comprovante.comFechaRegistro).toLocaleDateString().toLowerCase().includes(lowerSearchString))
+    );
   }
 
 }

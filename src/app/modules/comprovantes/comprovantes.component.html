@@ -1,27 +1,62 @@
 <app-loading-screen [isLoading]="isLoading"></app-loading-screen>
 <div *ngIf="isLoading == false">
     <div class="search-container">
-        <input type="text" [(ngModel)]="searchString" placeholder="Pesquise por nome, sobrenome, ou endereço..."
-            title="Pesquise por nome, sobrenome, ou endereço..." />
+        <select [(ngModel)]="selectedDay" title="Selecione o dia">
+            <option value="">Dia</option>
+            <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+        </select>
+
+        <select [(ngModel)]="selectedMonth" title="Selecione o mês">
+            <option value="">Mês</option>
+            <option *ngFor="let month of months" [value]="month.value">
+                {{ month.name }}
+            </option>
+        </select>
+
+        <select [(ngModel)]="selectedYear" title="Selecione o ano">
+            <option value="">Ano</option>
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+        </select>
+
+        <input type="text" [(ngModel)]="searchString" placeholder="Pesquise por nome..." title="Pesquise por nome..." />
+
+        <button (click)="search()">Pesquisar</button>
+        <button (click)="limpar()">Limpar</button>
     </div>
     <table>
         <thead>
             <tr>
-                <th>ID do alugel</th>
-                <th>Data De Upload </th>
+                <th>Data De Upload</th>
                 <th>Inquilino</th>
                 <th>Baixar Recibo</th>
             </tr>
         </thead>
         <tbody>
-            <tr key={key} *ngFor="let com of listComprobante | paginate: { itemsPerPage: 5, currentPage: page }">
-                <td *ngIf="rol == 'Administrador'">{{com.comId}}</td>
-                <td>{{com.comFechaRegistro}}</td>
-                <td>{{com.aluId.aluInquilino.usuPerId.perNombre+' '+com.aluId.aluInquilino.usuPerId.perApellido}}</td>
+            <tr key="{key}" *ngFor="
+          let com of listComprobante
+            | paginate : { itemsPerPage: 5, currentPage: page }
+        ">
+                <td>{{ com.comFechaRegistro | date:'dd/MM/yyyy'}}</td>
+                <td>
+                    {{
+                    com.aluId.aluInquilino.usuPerId.perNombre +
+                    " " +
+                    com.aluId.aluInquilino.usuPerId.perApellido
+                    }}
+                </td>
                 <td>
                     <div class="btnFotoUser" [hidden]="!com.comComprovante">
-                        <button class="BtnDown" title="Descarga"
-                            (click)="downloadImage(com.comComprovante || userImg, ('comprovante_'+com.comFechaRegistro+'_'+com.aluId.aluInquilino.usuPerId.perNombre+'_'+com.aluId.aluInquilino.usuPerId.perApellido))">
+                        <button class="BtnDown" title="Descarga" (click)="
+                downloadImage(
+                  com.comComprovante || userImg,
+                  'comprovante_' +
+                    com.comFechaRegistro +
+                    '_' +
+                    com.aluId.aluInquilino.usuPerId.perNombre +
+                    '_' +
+                    com.aluId.aluInquilino.usuPerId.perApellido
+                )
+              ">
                             <svg class="svgIcon" viewBox="0 0 384 512" height="1em" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
@@ -35,7 +70,14 @@
         </tbody>
     </table>
 </div>
-<div style="display: flex; justify-content: center; position: relative; bottom: 0; margin-top: 1%; width: 100%;">
+<div style="
+    display: flex;
+    justify-content: center;
+    position: relative;
+    bottom: 0;
+    margin-top: 1%;
+    width: 100%;
+  ">
     <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Seguinte"
         class="my-pagination"></pagination-controls>
 </div>
