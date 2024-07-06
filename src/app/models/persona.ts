@@ -6,6 +6,9 @@ export class Persona {
   perApellido: string;
   perDireccion: string;
   perTelefono: string;
+  perRG: string;
+  perEstadoCivil: string;
+  perNacionalidade: string;
   perFechaNacimiento: Date;
 
   constructor(
@@ -15,6 +18,9 @@ export class Persona {
     perApellido?: string,
     perDireccion?: string,
     perTelefono?: string,
+    perRG?: string,
+    perEstadoCivil?: string,
+    perNacionalidade?: string,
     perFechaNacimiento?: Date,
   ) {
     this.perId = perId || 0;
@@ -22,6 +28,9 @@ export class Persona {
     this.perNombre = perNombre || '';
     this.perApellido = perApellido || '';
     this.perDireccion = perDireccion || '';
+    this.perRG = perRG || '';
+    this.perNacionalidade = perNacionalidade || '';
+    this.perEstadoCivil = perEstadoCivil || '';
     this.perTelefono = perTelefono || '';
     this.perFechaNacimiento = perFechaNacimiento || new Date();
   }

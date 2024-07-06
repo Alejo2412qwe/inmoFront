@@ -21,6 +21,7 @@ import { InfoaluguelComponent } from './modules/infoaluguel/infoaluguel.componen
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
 import { ComprovantesComponent } from './modules/comprovantes/comprovantes.component';
+import { ContratoComponent } from './modules/contrato/contrato.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ComprovantesComponent } from './modules/comprovantes/comprovantes.compo
     InfoaluguelComponent,
     LoadingScreenComponent,
     AdminpanelComponent,
-    ComprovantesComponent
+    ComprovantesComponent,
+    ContratoComponent
   ],
   imports: [
     BrowserModule,

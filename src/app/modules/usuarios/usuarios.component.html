@@ -19,8 +19,11 @@
                 <th>ID do usuário</th>
                 <th>Foto</th>
                 <th>CPF</th>
+                <th>RG</th>
                 <th>Nome Completo</th>
                 <th>Telefone</th>
+                <th>Estado Civil</th>
+                <th>Nacionalidade</th>
                 <th>Função</th>
                 <th>OPÇÃO</th>
             </tr>
@@ -36,8 +39,11 @@
                     </section>
                 </td>
                 <td>{{user.usuPerId.perCedula}}</td>
+                <td>{{user.usuPerId.perRG}}</td>
                 <td>{{user.usuPerId.perNombre + ' '+user.usuPerId.perApellido}}</td>
                 <td>{{'+55 '+user.usuPerId.perTelefono}}</td>
+                <td>{{user.usuPerId.perEstadoCivil}}</td>
+                <td>{{user.usuPerId.perNacionalidade}}</td>
                 <td>{{user.rolId.rolNombre}}</td>
                 <td>
                     <button role="button" class="button-name2" *ngIf="user.usuEstado ===1"

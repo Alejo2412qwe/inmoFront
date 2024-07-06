@@ -17,6 +17,25 @@
             <input placeholder="Por exemplo: 12345678900" name="fcpf" type="text" id="tabla"
                 [(ngModel)]="Persona.perCedula">
 
+            <label for="rg">RG (*)</label>
+            <input placeholder="Por exemplo: A123456B" name="frg" type="text" id="tabla" [(ngModel)]="Persona.perRG">
+
+            <label for="estado">Estado Civil (*)</label>
+            <select name="festado" [(ngModel)]="Persona.perEstadoCivil" id="tabla">
+                <option [disabled]="true" value="0">Selecione um estado</option>
+                <option *ngFor="let est of estados" [value]="est.name">
+                    {{ est.name }}
+                </option>
+            </select>
+
+            <label for="estado">Nacionalidade (*)</label>
+            <select name="festado" [(ngModel)]="Persona.perNacionalidade" id="tabla">
+                <option [disabled]="true" value="0">Selecione um estado</option>
+                <option *ngFor="let pais of pais" [value]="pais.name">
+                    {{ pais.name }}
+                </option>
+            </select>
+
             <label for="nome">Nome (*)</label>
             <input placeholder="Digite o nome..." name="fnombre" type="text" id="tabla" [(ngModel)]="Persona.perNombre">
 

@@ -10,6 +10,7 @@ import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component
 import { InfoaluguelComponent } from './modules/infoaluguel/infoaluguel.component';
 import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
 import { ComprovantesComponent } from './modules/comprovantes/comprovantes.component';
+import { ContratoComponent } from './modules/contrato/contrato.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +22,11 @@ const routes: Routes = [
     path: 'admin', component: AdminpanelComponent,
     /*canActivate: [AuthGuard],
     data: { expectedRoles: ['Dono'] }*/
+  },
+  {
+    path: 'contratos', component: ContratoComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador', 'Propietario'] }
   },
   {
     path: 'cadUsuarios', component: CadUsuarioComponent,
