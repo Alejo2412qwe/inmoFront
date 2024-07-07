@@ -51,13 +51,13 @@ export class CadastroComponent implements OnInit {
   rol: string = this.sessionStorage.getItem('rol') || '';
 
   loadProp() {
-    this.usuarioService.getUsersByRol(3).subscribe((users) => {
+    this.usuarioService.getUsersByRol(3,1).subscribe((users) => {
       this.listPropietarios = users;
     })
   }
 
   loadInqui() {
-    this.usuarioService.getUsersByRol(4).subscribe((users) => {
+    this.usuarioService.getUsersByRol(4,1).subscribe((users) => {
       this.listInquilinos = users;
     })
   }

@@ -31,13 +31,13 @@ export class UsuarioService {
     });
   }
 
-  getUsersByRol(id: number) {
+  getUsersByRol(id: number,est:number) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
     // Realiza la solicitud HTTP con el encabezado de autorización
-    return this.http.get<Usuario[]>(`${this.url}/getUsersByRol?id=${id}`, {
+    return this.http.get<Usuario[]>(`${this.url}/getUsersByRol?id=${id}&est=${est}`, {
       headers,
     });
   }

@@ -25,8 +25,7 @@ export class ContratoComponent implements OnInit {
 
   estList: number = 1;
   userImg = USER
-  searchString1: string = '';
-  searchString2: string = '';
+  searchString: string = '';
 
   isLoading: boolean = true;
 
@@ -179,20 +178,24 @@ export class ContratoComponent implements OnInit {
   }
 
   selectInquilino(idInq: number) {
-    this.selectedInq = idInq;
-    if (this.selectedInq) {
-      this.toastr.success("Inquilino corretamente selecionado");
-    } else {
-      this.toastr.error("Erro ao obter o locatário desejado");
-    }
+
   }
 
-  selectPropietario(idInq: number) {
-    this.selectedProp = idInq;
-    if (this.selectedProp) {
-      this.toastr.success("Propietario corretamente selecionado");
+  selectPessoa(id: number, rol: number) {
+    if (rol == 3) {
+      this.selectedProp = id;
+      if (this.selectedProp) {
+        this.toastr.success("Propietario corretamente selecionado");
+      } else {
+        this.toastr.error("Erro ao obter o propietario desejado");
+      }
     } else {
-      this.toastr.error("Erro ao obter o propietario desejado");
+      this.selectedInq = id;
+      if (this.selectedInq) {
+        this.toastr.success("Inquilino corretamente selecionado");
+      } else {
+        this.toastr.error("Erro ao obter o locatário desejado");
+      }
     }
   }
 
@@ -294,9 +297,9 @@ export class ContratoComponent implements OnInit {
 
               doc.text("Nome: " + prop.usuPerId.perNombre + ' ' + prop.usuPerId.perApellido, 11, 85)
               doc.text("CPF (MF): " + prop.usuPerId.perCedula, 11, 92)
-              doc.text("Nacionalidade: " + prop.usuPerId.perCedula, 11, 99)
-              doc.text("RG: " + prop.usuPerId.perCedula, 11, 106)
-              doc.text("Estado Civil: " + prop.usuPerId.perCedula, 11, 113)
+              doc.text("Nacionalidade: " + prop.usuPerId.perNacionalidade, 11, 99)
+              doc.text("RG: " + prop.usuPerId.perRG, 11, 106)
+              doc.text("Estado Civil: " + prop.usuPerId.perEstadoCivil, 11, 113)
 
               doc.text("LOCATÁRIO:", 11, 125)
 
@@ -308,13 +311,11 @@ export class ContratoComponent implements OnInit {
               doc.text("E-mail: " + inq.usuCorreo, 11, 169)
               doc.text("Telefone: " + inq.usuPerId.perTelefono, 11, 176)
 
-              doc.text("IMOBILIÁRIA INTERMEDIADORA: ", 11, 185)
-
-              doc.text("Nome: IMÓVEIS PORTAL CIC", 11, 192)
-              doc.text("CNPJ/MF: 23.849.230/0001-25", 11, 199)
-              doc.text("Nome: IMÓVEIS PORTAL CIC", 11, 206)
-              doc.text("CRECI/PR: J5849", 11, 213)
-              doc.text("Endereço: Rua Engenheiro Afonso Nadolny, 1231, CIC - Curitiba - PR", 11, 220)
+              doc.text("IMOBILIÁRIA INTERMEDIADORA: ", 11, 187)
+              doc.text("Nome: IMÓVEIS PORTAL CIC", 11, 194)
+              doc.text("CNPJ/MF: 23.849.230/0001-25", 11, 201)
+              doc.text("CRECI/PR: J5849", 11, 208)
+              doc.text("Endereço: Rua Engenheiro Afonso Nadolny, 1231, CIC - Curitiba - PR", 11, 215)
 
               doc.text('1', 195, 290);
               doc.addPage();
@@ -410,7 +411,7 @@ export class ContratoComponent implements OnInit {
                 doc.text(line, textX, textY);
               });
 
-              const text8 = 'CLÁUSULA QUARTA: Os aluguéis mensais deverão ser pagos até o dia '+dia+' do mês subsequente mediante pagamento junto à IMOBILIÁRIA INTERMEDIADORA, na Conta para Depósito Portal CIC assessoria imobiliária LTDA. Conta Caixa Econômica Federal Agência 4744 Conta 692-1, para transferência via PIX usar CNPJ 23.849.230/0001-25, mediante recibo de aluguel. Com o pagamento, o LOCATÁRIO deverá enviar os comprovantes de pagamento Aluguel, água, luz e despesas condominiais, ao número de telefone (41) 9 9777-5496'
+              const text8 = 'CLÁUSULA QUARTA: Os aluguéis mensais deverão ser pagos até o dia ' + dia + ' do mês subsequente mediante pagamento junto à IMOBILIÁRIA INTERMEDIADORA, na Conta para Depósito Portal CIC assessoria imobiliária LTDA. Conta Caixa Econômica Federal Agência 4744 Conta 692-1, para transferência via PIX usar CNPJ 23.849.230/0001-25, mediante recibo de aluguel. Com o pagamento, o LOCATÁRIO deverá enviar os comprovantes de pagamento Aluguel, água, luz e despesas condominiais, ao número de telefone (41) 9 9777-5496'
               const lines8 = doc.splitTextToSize(text8, maxLineWidth);
               lines8.forEach((line: any, index: any) => {
                 const textX = 11;
@@ -773,6 +774,7 @@ export class ContratoComponent implements OnInit {
               //gerar
               doc.save('contrato_' + inq.usuPerId.perNombre + '_' + inq.usuPerId.perApellido + '.pdf');
               this.toastr.success("GERADO CORRETAMENTE");
+              this.limpar();
             } else {
               this.toastr.error("Proprietário não encontrado");
             }
@@ -782,5 +784,14 @@ export class ContratoComponent implements OnInit {
         }
       });
     }
+  }
+
+  limpar() {
+    this.pagamento = '';
+    this.valorInicial = '';
+    this.plazo = '';
+    this.caucao = '';
+    this.cidade = '';
+    this.searchString = '';
   }
 }

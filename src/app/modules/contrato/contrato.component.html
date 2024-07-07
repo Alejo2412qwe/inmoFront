@@ -1,12 +1,11 @@
 <app-loading-screen [isLoading]="isLoading"></app-loading-screen>
 <div *ngIf="isLoading == false" class="container">
     <div class="propietarios">
-        <h1>PROPIETÁRIOS</h1>
         <div class="search-container">
-            <input type="text" [(ngModel)]="searchString2"
+            <input type="text" [(ngModel)]="searchString"
                 placeholder="Pesquise por CPF, nome, sobrenome, nome de usuário ou telefone..."
                 title="Pesquise por ID, nome, sobrenome, nome de usuário ou telefone..."
-                (input)="searchUser(searchString2, 1)" />
+                (input)="searchUser(searchString, 1)" />
         </div>
         <table>
             <thead>
@@ -15,11 +14,12 @@
                     <th>CPF</th>
                     <th>Nome Completo</th>
                     <th>Telefone</th>
-                    <th></th>
+                    <th>Função</th>
+                    <th>OPÇÃO</th>
                 </tr>
             </thead>
             <tbody>
-                <tr key={key} *ngFor="let user of listaUsuarios | paginate: { itemsPerPage: 3, currentPage: page1 }">
+                <tr key={key} *ngFor="let user of listaUsuarios | paginate: { itemsPerPage: 5, currentPage: page1 }">
                     <td style="display: flex; align-items: center; justify-content: center;">
                         <section class="imgSection">
                             <div class="fotoUser">
@@ -30,53 +30,14 @@
                     <td>{{user.usuPerId.perCedula}}</td>
                     <td>{{user.usuPerId.perNombre + ' '+user.usuPerId.perApellido}}</td>
                     <td>{{'+55 '+user.usuPerId.perTelefono}}</td>
+                    <td>{{user.rolId.rolNombre}}</td>
                     <td class="col-7"><button class="centered-button"
-                            (click)="selectPropietario(user.usuId)">Seleccionar</button></td>
+                            (click)="selectPessoa(user.usuId,user.rolId.rolId)">Selecione</button></td>
                 </tr>
             </tbody>
         </table>
         <div class="pagination-container">
             <pagination-controls (pageChange)="page1 = $event" previousLabel="Anterior" nextLabel="Seguinte"
-                class="my-pagination"></pagination-controls>
-        </div>
-    </div>
-    <div class="inquilinos">
-        <h1>INQUILINOS</h1>
-        <div class="search-container">
-            <input type="text" [(ngModel)]="searchString1"
-                placeholder="Pesquise por CPF, nome, sobrenome, nome de usuário ou telefone..."
-                title="Pesquise por ID, nome, sobrenome, nome de usuário ou telefone..."
-                (input)="searchUser(searchString1, 1)" />
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Foto</th>
-                    <th>CPF</th>
-                    <th>Nome Completo</th>
-                    <th>Telefone</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr key={key} *ngFor="let user of listaUsuarios | paginate: { itemsPerPage: 3, currentPage: page2 }">
-                    <td style="display: flex; align-items: center; justify-content: center;">
-                        <section class="imgSection">
-                            <div class="fotoUser">
-                                <img [src]="user.foto || userImg" alt="Foto" style="width: 65px" />
-                            </div>
-                        </section>
-                    </td>
-                    <td>{{user.usuPerId.perCedula}}</td>
-                    <td>{{user.usuPerId.perNombre + ' '+user.usuPerId.perApellido}}</td>
-                    <td>{{'+55 '+user.usuPerId.perTelefono}}</td>
-                    <td class="col-7"><button class="centered-button"
-                            (click)="selectInquilino(user.usuId)">Seleccionar</button></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="pagination-container">
-            <pagination-controls (pageChange)="page2 = $event" previousLabel="Anterior" nextLabel="Seguinte"
                 class="my-pagination"></pagination-controls>
         </div>
     </div>
@@ -108,7 +69,7 @@
     <div class="valor centrado">
         <h1 for="estado">Cidade (*)</h1>
         <select name="festado" [(ngModel)]="cidade" id="tabla" class="bonito-select">
-            <option [disabled]="true" value="0">Selecione um estado</option>
+            <option [disabled]="true">Selecione um estado</option>
             <option *ngFor="let cid of cidadesParana" [value]="cid.name">
                 {{ cid.name }}
             </option>
