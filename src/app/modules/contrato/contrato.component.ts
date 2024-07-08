@@ -40,6 +40,7 @@ export class ContratoComponent implements OnInit {
   tipo!: string;
   matricula!: string;
   unidade!: string;
+  finalidade!:string;
 
   tipoRes: { name: string, value: number }[] = [
     { name: 'Casa', value: 1 },
@@ -356,7 +357,7 @@ export class ContratoComponent implements OnInit {
               doc.text("Finalidade:", 15, 70)
 
               doc.rect(61, 65, 138, 20);
-              doc.text("Residencial: 2 Adultos", 65, 75)
+              doc.text(this.finalidade, 65, 75)
 
 
               const text3 = 'VIGÊNCIA: 12 (Doze) meses podendo ser prorrogada por mais 12 (Doze) meses caso ambos queiram dar continuidade com aviso antecipado de no mínimo 30 dias antes do vencimento';
