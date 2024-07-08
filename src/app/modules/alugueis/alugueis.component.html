@@ -25,10 +25,10 @@
                 <th>Foto De Historial De Saída</th>
                 <th>Contrato</th>
                 <th>Comprovante</th>
-                <th *ngIf="rol == 'Administrador'">Status De Aluguel</th>
+                <th>Status De Aluguel</th>
                 <th *ngIf="rol == 'Administrador'">Ver mais</th>
-                <th>EDITAR</th>
-                <th>OPÇÃO</th>
+                <th *ngIf="rol == 'Administrador'">EDITAR</th>
+                <th *ngIf="rol == 'Administrador'">OPÇÃO</th>
             </tr>
         </thead>
         <tbody>
@@ -112,13 +112,13 @@
                         <span class="icon2"></span>
                     </button>
                 </td>
-                <td *ngIf="rol == 'Administrador'">
+                <td>
                     {{alugue.aluEstado == 1?'Ativo':'Inativo'}}
                 </td>
                 <td *ngIf="rol == 'Administrador'">
                     <a [routerLink]="['/infoAluguel/'+alugue.aluId]"><i class="fas fa-plus fa-3x"></i></a>
                 </td>
-                <td>
+                <td *ngIf="rol == 'Administrador'">
                     <button role="button" class="button-name2" title="Editar Activo"
                         [routerLink]="['/edit-alu', alugue.aluId ,'edit-alu']">
                         <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 512 512">
@@ -127,7 +127,7 @@
                         </svg>
                     </button>
                 </td>
-                <td>
+                <td *ngIf="rol == 'Administrador'">
                     <button role="button" class="button-name2" *ngIf="alugue.aluEstado ===1"
                         (click)="updateEstAluguel(alugue.aluId,0)">
                         <svg height="1.25em"

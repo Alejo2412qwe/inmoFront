@@ -36,18 +36,25 @@ export class AlugueisComponent implements OnInit {
   base64String: string = '';
 
   rol: string = this.sessionStorage.getItem('rol') || '';
+  userId: number = this.sessionStorage.getItem('userId') || 0;
 
   ngOnInit(): void {
     this.loadData();
   }
 
   loadAlugueis(est: number) {
-    if (est === 0 || est === 1) {
-      this.aluguelService.allAlugueisData(est).subscribe((response) => {
-        this.listAluguel = response;
-      });
+    if (this.rol == 'Administrador') {
+      if (est === 0 || est === 1) {
+        this.aluguelService.allAlugueisData(est).subscribe((response) => {
+          this.listAluguel = response;
+        });
+      } else {
+        console.error('El valor de "est" debe ser 0 o 1.');
+      }
     } else {
-      console.error('El valor de "est" debe ser 0 o 1.');
+      this.aluguelService.getAluguelByPropietario(this.userId).subscribe((response) => {
+        this.listAluguel = response;
+      })
     }
   }
 

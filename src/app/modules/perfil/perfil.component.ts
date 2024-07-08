@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { USER } from 'src/app/common/img64';
 import { Usuario } from 'src/app/models/usuario';
 import { PersonaService } from 'src/app/services/persona.service';
 import { RolService } from 'src/app/services/rol.service';
@@ -25,6 +26,7 @@ export class PerfilComponent implements OnInit {
 
   isLoading: boolean = true;
   usuario: Usuario = new Usuario();
+  userImg = USER
 
   ngOnInit(): void {
     this.loadData();
