@@ -67,6 +67,28 @@
     </div>
 
     <div class="valor centrado">
+        <h1 for="endereço">Matricula (*)</h1>
+        <input placeholder="Digite a matricula..." name="fvalor" type="text" id="tabla" class="bonito-input"
+            [(ngModel)]="matricula">
+    </div>
+
+    <div class="valor centrado">
+        <h1 for="endereço">Unidade Consumidora (*)</h1>
+        <input placeholder="Digite a unidade consumidora..." name="fvalor" type="text" id="tabla" class="bonito-input"
+            [(ngModel)]="unidade">
+    </div>
+
+    <div class="valor centrado">
+        <h1 for="estado">Tipo De Residência (*)</h1>
+        <select name="festado" [(ngModel)]="tipo" id="tabla" class="bonito-select">
+            <option [disabled]="true">Selecione um estado</option>
+            <option *ngFor="let tipo of tipoRes" [value]="tipo.name">
+                {{ tipo.name }}
+            </option>
+        </select>
+    </div>
+
+    <div class="valor centrado">
         <h1 for="estado">Cidade (*)</h1>
         <select name="festado" [(ngModel)]="cidade" id="tabla" class="bonito-select">
             <option [disabled]="true">Selecione um estado</option>

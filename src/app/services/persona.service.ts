@@ -53,6 +53,16 @@ export class PersonaService {
     return this.http.get<boolean>(`${this.url}/cedulaUnica?ci=${ci}`, { headers });
   }
 
+  rgUnico(rg: string) {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP GET con el encabezado de autorización
+    return this.http.get<boolean>(`${this.url}/rgUnico?rg=${rg}`, { headers });
+  }
+
 
   getPersonas(): Observable<Persona[]> {
 

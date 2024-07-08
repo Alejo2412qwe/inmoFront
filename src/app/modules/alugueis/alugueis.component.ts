@@ -99,14 +99,14 @@ export class AlugueisComponent implements OnInit {
     if (est === 0) {
       mensaje = 'desativar'
     } else {
-      mensaje = 'activar'
+      mensaje = 'ativar'
     }
     Swal.fire({
       title: `Tem certeza de que deseja ${mensaje} o usuário?`,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: `Sí, ${mensaje}`,
-      cancelButtonText: 'No'
+      confirmButtonText: `Sim, ${mensaje}`,
+      cancelButtonText: 'Não'
     }).then((result) => {
       if (result.isConfirmed) {
         this.aluguelService.updateEst(id, est).subscribe({

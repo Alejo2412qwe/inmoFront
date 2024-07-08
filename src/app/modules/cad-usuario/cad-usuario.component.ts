@@ -33,7 +33,7 @@ export class CadUsuarioComponent implements OnInit {
     { name: 'Viúv@', value: 3 },
     { name: 'Divorciad@', value: 4 },
   ];
-  
+
   pais: { name: string, value: number }[] = [
     { name: 'Afeganistão', value: 1 },
     { name: 'Albânia', value: 2 },
@@ -482,96 +482,104 @@ export class CadUsuarioComponent implements OnInit {
     if (this.validarRegistro()) {
       this.personaServie.cedulaUnica(this.Persona.perCedula?.trim() || '').subscribe((response) => {
         if (response) {
-          this.usuarioService.usuarioUnico(this.Usuario.usuNombreUsuario?.trim() || '').subscribe((res) => {
-            if (res) {
-              const rolEncontrado = this.listaRoles.find(rol => rol.rolId.toString() === this.Usuario.rolId?.rolId.toString());
+          this.personaServie.rgUnico(this.Persona.perRG?.trim() || '').subscribe((resp) => {
+            if (resp) {
+              this.usuarioService.usuarioUnico(this.Usuario.usuNombreUsuario?.trim() || '').subscribe((res) => {
+                if (res) {
+                  const rolEncontrado = this.listaRoles.find(rol => rol.rolId.toString() === this.Usuario.rolId?.rolId.toString());
 
-              if (rolEncontrado) {
-                if (rolEncontrado.rolNombre == 'Dono') {
-                  Swal.fire({
-                    title: "Você está tentando adicionar um proprietário de empresa, se desejar, será necessário inserir a senha do proprietário",
-                    input: "text",
-                    inputAttributes: {
-                      autocapitalize: "off"
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: `
-                    <i class="fa fa-thumbs-up"></i> Continuar
-                  `,
-                    showLoaderOnConfirm: true,
-                    preConfirm: (senha) => {
-                      return senha;
-                    },
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      this.usuarioService.senhaDono(result.value).subscribe((response) => {
-                        if (response) {
-                          this.Usuario.rolId.rolNombre = rolEncontrado.rolNombre;
-                          //agregar foto
-                          this.Usuario.foto = this.base64Image;
+                  if (rolEncontrado) {
+                    if (rolEncontrado.rolNombre == 'Dono') {
+                      Swal.fire({
+                        title: "Você está tentando adicionar um proprietário de empresa, se desejar, será necessário inserir a senha do proprietário",
+                        input: "text",
+                        inputAttributes: {
+                          autocapitalize: "off"
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: `
+              <i class="fa fa-thumbs-up"></i> Continuar
+            `,
+                        showLoaderOnConfirm: true,
+                        preConfirm: (senha) => {
+                          return senha;
+                        },
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          this.usuarioService.senhaDono(result.value).subscribe((response) => {
+                            if (response) {
+                              this.Usuario.rolId.rolNombre = rolEncontrado.rolNombre;
+                              //agregar foto
+                              this.Usuario.foto = this.base64Image;
 
-                          // REGISTRAR PERSONA
-                          this.personaServie.registrarPersona(this.Persona).subscribe((response) => {
-                            this.Usuario.usuEstado = 1;
-                            this.Usuario.usuPerId = response;
+                              // REGISTRAR PERSONA
+                              this.personaServie.registrarPersona(this.Persona).subscribe((response) => {
+                                this.Usuario.usuEstado = 1;
+                                this.Usuario.usuPerId = response;
 
-                            // REGISTRAR USUARIO
-                            this.usuarioService.registrarUsuario(this.Usuario).subscribe((response) => {
-                              Swal.fire({
-                                title: '¡Registro bem-sucedido!',
-                                text: `${this.Persona.perNombre} ${this.Persona.perApellido} (${this.Usuario.rolId.rolNombre}) adicionado com sucesso`,
-                                icon: 'success',
-                                confirmButtonText: 'Confirmar',
-                                showCancelButton: false,
-                              }).then(() => {
-                                this.limpiarRegistro();
-                                this.router.navigate(['/usuarios']);
+                                // REGISTRAR USUARIO
+                                this.usuarioService.registrarUsuario(this.Usuario).subscribe((response) => {
+                                  Swal.fire({
+                                    title: '¡Registro bem-sucedido!',
+                                    text: `${this.Persona.perNombre} ${this.Persona.perApellido} (${this.Usuario.rolId.rolNombre}) adicionado com sucesso`,
+                                    icon: 'success',
+                                    confirmButtonText: 'Confirmar',
+                                    showCancelButton: false,
+                                  }).then(() => {
+                                    this.limpiarRegistro();
+                                    this.router.navigate(['/usuarios']);
+                                  });
+                                });
                               });
-                            });
-                          });
-                        } else {
-                          Swal.fire({
-                            title: 'Senha incorreta',
-                            text: 'A senha inserida está incorreta. Por favor, tente novamente.',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                          });
+                            } else {
+                              Swal.fire({
+                                title: 'Senha incorreta',
+                                text: 'A senha inserida está incorreta. Por favor, tente novamente.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                              });
+                            }
+                          })
                         }
                       })
-                    }
-                  })
-                } else {
-                  this.Usuario.rolId.rolNombre = rolEncontrado.rolNombre;
-                  //agregar foto
-                  this.Usuario.foto = this.base64Image;
+                    } else {
+                      this.Usuario.rolId.rolNombre = rolEncontrado.rolNombre;
+                      //agregar foto
+                      this.Usuario.foto = this.base64Image;
 
-                  // REGISTRAR PERSONA
-                  this.personaServie.registrarPersona(this.Persona).subscribe((response) => {
-                    this.Usuario.usuEstado = 1;
-                    this.Usuario.usuPerId = response;
+                      // REGISTRAR PERSONA
+                      this.personaServie.registrarPersona(this.Persona).subscribe((response) => {
+                        this.Usuario.usuEstado = 1;
+                        this.Usuario.usuPerId = response;
 
-                    // REGISTRAR USUARIO
-                    this.usuarioService.registrarUsuario(this.Usuario).subscribe((response) => {
-                      Swal.fire({
-                        title: '¡Registro bem-sucedido!',
-                        text: `${this.Persona.perNombre} ${this.Persona.perApellido} (${this.Usuario.rolId.rolNombre}) adicionado com sucesso`,
-                        icon: 'success',
-                        confirmButtonText: 'Confirmar',
-                        showCancelButton: false,
-                      }).then(() => {
-                        this.limpiarRegistro();
-                        this.router.navigate(['/usuarios']);
+                        // REGISTRAR USUARIO
+                        this.usuarioService.registrarUsuario(this.Usuario).subscribe((response) => {
+                          Swal.fire({
+                            title: '¡Registro bem-sucedido!',
+                            text: `${this.Persona.perNombre} ${this.Persona.perApellido} (${this.Usuario.rolId.rolNombre}) adicionado com sucesso`,
+                            icon: 'success',
+                            confirmButtonText: 'Confirmar',
+                            showCancelButton: false,
+                          }).then(() => {
+                            this.limpiarRegistro();
+                            this.router.navigate(['/usuarios']);
+                          });
+                        });
                       });
-                    });
+                    }
+                  }
+                } else {
+                  this.toastr.error('O nome de usuário que você digitou já está registrado', 'Usuário duplicado', {
+                    timeOut: this.timeToastr,
                   });
                 }
-              }
+              });
             } else {
-              this.toastr.error('O nome de usuário que você digitou já está registrado', 'Usuário duplicado', {
+              this.toastr.error('O RG que você digitou já está cadastrado', 'CPF duplicado', {
                 timeOut: this.timeToastr,
               });
             }
-          });
+          })
         } else {
           this.toastr.error('O CPF que você digitou já está cadastrado', 'CPF duplicado', {
             timeOut: this.timeToastr,

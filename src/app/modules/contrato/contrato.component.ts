@@ -34,12 +34,18 @@ export class ContratoComponent implements OnInit {
 
   valorInicial!: string;
   pagamento!: string;
-
   plazo!: string;
-
   caucao!: string;
-
   cidade!: string;
+  tipo!: string;
+  matricula!: string;
+  unidade!: string;
+
+  tipoRes: { name: string, value: number }[] = [
+    { name: 'Casa', value: 1 },
+    { name: 'Departamento', value: 2 },
+    { name: 'Sobrado', value: 3 },
+  ];
 
   cidadesParana: { name: string, value: number }[] = [
     { name: 'Curitiba', value: 1 },
@@ -177,10 +183,6 @@ export class ContratoComponent implements OnInit {
     });
   }
 
-  selectInquilino(idInq: number) {
-
-  }
-
   selectPessoa(id: number, rol: number) {
     if (rol == 3) {
       this.selectedProp = id;
@@ -238,6 +240,21 @@ export class ContratoComponent implements OnInit {
 
     if (!this.cidade) {
       this.toastr.error("Selecione uma cidade");
+      return false;
+    }
+
+    if (!this.tipo) {
+      this.toastr.error("Selecione um tipo");
+      return false;
+    }
+
+    if (!this.matricula) {
+      this.toastr.error("Digite uma matricula");
+      return false;
+    }
+
+    if (!this.unidade) {
+      this.toastr.error("Digite uma unidade");
       return false;
     }
 
@@ -327,9 +344,9 @@ export class ContratoComponent implements OnInit {
               doc.rect(11, 25, 50, 20);
               doc.rect(61, 25, 138, 20);
               doc.text("Descrição:", 15, 30)
-              doc.text("Casa", 65, 30)
-              doc.text("Matricula: 38993437", 65, 40)
-              doc.text("Unidade Consumidora: 91902754", 125, 40)
+              doc.text(this.tipo, 65, 30)
+              doc.text("Matricula: " + this.matricula, 65, 40)
+              doc.text("Unidade Consumidora: " + this.unidade, 125, 40)
 
               const rectWidth2 = pageWidth - 22;
               doc.rect(11, 45, rectWidth2, 20);

@@ -29,10 +29,16 @@
                 <a [routerLink]="['/nav']"><i class="fas fa-arrow-left"></i></a>
             </div>
         </li>
-        <li *ngIf="currentRoute == '/cadUsuarios' || currentRoute == '/cadastro'">
+        <li *ngIf="currentRoute == '/cadUsuarios' || currentRoute == '/cadastro' || currentRoute == '/perfil'">
             <span class="fab-label">voltar atrás</span>
             <div class="fab-icon-holder">
                 <a (click)="goBack()"><i class="fas fa-arrow-left"></i></a>
+            </div>
+        </li>
+        <li *ngIf="currentRoute != '/perfil'">
+            <span class="fab-label">Meu Perfil</span>
+            <div class="fab-icon-holder">
+                <a [routerLink]="['/perfil']"><i class="fas fa-user"></i></a>
             </div>
         </li>
         <li>

@@ -22,6 +22,7 @@ import { LoadingScreenComponent } from './components/loading-screen/loading-scre
 import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
 import { ComprovantesComponent } from './modules/comprovantes/comprovantes.component';
 import { ContratoComponent } from './modules/contrato/contrato.component';
+import { PerfilComponent } from './modules/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ContratoComponent } from './modules/contrato/contrato.component';
     LoadingScreenComponent,
     AdminpanelComponent,
     ComprovantesComponent,
-    ContratoComponent
+    ContratoComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
