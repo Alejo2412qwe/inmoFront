@@ -7,12 +7,10 @@
             Proprietário Da Empresa
         </p>
         <p>
-            <img class="profile-pic"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQurna6a42SpKe38ovPipim3STLIjTlU0uXuw&usqp=CAU"
-                alt="Profile Pic">
+            <img class="profile-pic" [src]="usuario.foto || userImg">
         </p>
         <p class="name">
-            Bill Gates
+            {{usuario.usuPerId.perNombre+' '+usuario.usuPerId.perApellido}}
         </p>
     </section>
 

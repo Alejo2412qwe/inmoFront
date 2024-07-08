@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { USER } from 'src/app/common/img64';
+import { Usuario } from 'src/app/models/usuario';
 import { AluguelService } from 'src/app/services/aluguel.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -18,6 +20,11 @@ export class AdminpanelComponent implements OnInit {
     private usuarioService: UsuarioService
   ) { }
 
+  rol: string = this.sessionStorage.getItem('rol') || '';
+  userId: number = this.sessionStorage.getItem('userId') || 0;
+
+  userImg = USER
+  usuario: Usuario = new Usuario();
   usuarios!: number;
   aluguels!: number;
   suma!: number;
@@ -28,6 +35,14 @@ export class AdminpanelComponent implements OnInit {
   ngOnInit(): void {
     this.showMensajeBienvendia();
     this.getCantidades();
+  }
+
+  loadInfo() {
+    if (this.rol == 'Dono') {
+      this.usuarioService.searchUsersId(this.userId).subscribe((user) => {
+        this.usuario = user
+      })
+    }
   }
 
   getCantidades() {
