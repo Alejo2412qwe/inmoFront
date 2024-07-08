@@ -20,9 +20,15 @@ const routes: Routes = [
     path: 'nav', component: NavComponent
   },
   {
+    path: 'edit-usuario/:id/:mode',
+    component: CadUsuarioComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador'] }
+  },
+  {
     path: 'admin', component: AdminpanelComponent,
-    /*canActivate: [AuthGuard],
-    data: { expectedRoles: ['Dono'] }*/
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Dono'] }
   },
   {
     path: 'contratos', component: ContratoComponent,

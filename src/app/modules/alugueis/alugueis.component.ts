@@ -48,8 +48,6 @@ export class AlugueisComponent implements OnInit {
         this.aluguelService.allAlugueisData(est).subscribe((response) => {
           this.listAluguel = response;
         });
-      } else {
-        console.error('El valor de "est" debe ser 0 o 1.');
       }
     } else {
       this.aluguelService.getAluguelByPropietario(this.userId).subscribe((response) => {

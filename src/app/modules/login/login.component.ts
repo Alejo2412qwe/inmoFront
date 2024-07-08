@@ -44,12 +44,9 @@ export class LoginComponent implements OnInit {
 
         const tiempoRestante = decodedToken['exp'] - Math.floor(Date.now() / 1000);
         this.sessionStorage.setItem('tiempoRestante', tiempoRestante.toString());
-
-      } else {
-        console.error("Token inválido o no contiene información de rol.");
       }
     } catch (error) {
-      console.error("Error al decodificar el token:", error);
+      console.error(error, 'Erro Token');
     }
   }
 
@@ -80,20 +77,18 @@ export class LoginComponent implements OnInit {
                 alert('user not found');
               }
             },
-            error => {
-              console.error("Error en el login:", error);
-              this.toastr.error('Error al iniciar sesión, por favor intente de nuevo.');
+            () => {
+              this.toastr.error('Erro ao fazer login, tente novamente.');
             }
           );
         } else {
-          this.toastr.error('El usuario que ingreso no se encuentra registrado, digite correctamente', 'Nombre de usuario incorrecto', {
+          this.toastr.error('O usuário que inseri não está cadastrado, digite corretamente', 'Nome de usuário incorreto', {
             timeOut: 4000
           });
         }
       },
-      error => {
-        console.error("Error al validar usuario:", error);
-        this.toastr.error('Error al validar usuario, por favor intente de nuevo.');
+      () => {
+        this.toastr.error('Erro ao validar o usuário, tente novamente.');
       }
     );
   }

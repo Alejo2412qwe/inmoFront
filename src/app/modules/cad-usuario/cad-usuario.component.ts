@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { base64ToFile } from 'src/app/common/base64';
 import { calcularEdad, validarCorreo, validarCPF } from 'src/app/common/validaciones';
 import { Persona } from 'src/app/models/persona';
 import { Rol } from 'src/app/models/rol';
@@ -24,7 +25,8 @@ export class CadUsuarioComponent implements OnInit {
     private rolService: RolService,
     private toastr: ToastrService,
     private personaServie: PersonaService,
-    private usuarioService: UsuarioService) {
+    private usuarioService: UsuarioService,
+    private activatedRoute: ActivatedRoute,) {
   }
 
   estados: { name: string, value: number }[] = [
@@ -231,6 +233,7 @@ export class CadUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadFunção();
+    this.validateMode();
   }
 
   Usuario: Usuario = new Usuario();
@@ -242,20 +245,60 @@ export class CadUsuarioComponent implements OnInit {
   confirmarPass: string = '';
   timeToastr: number = 4000;
   edadMinima = 18;
-  newSubproceso: string = '';
-  newInstitucion: string = '';
-  newProceso: string = '';
   id: number = 0;
   editeMode: boolean = false;
-  mostrarJefe: boolean = false;
   mode: string = ''
-  userId: number = 0
 
   selectedFile: File | undefined = undefined;
   base64Image: any;
   base64String: string = '';
 
   rol: string = this.sessionStorage.getItem('rol') || '';
+
+  validateMode() {
+    this.activatedRoute.params.subscribe((params) => {
+
+      this.mode = params['mode'];
+
+      switch (this.mode) {
+
+        case "edit-user":
+          this.id = params['id'];
+
+          if (this.id !== undefined) {
+            this.editeMode = true;
+            this.loadEdit(this.id);
+          }
+          break;
+        default:
+          console.log("Opción no reconocida");
+      }
+
+    });
+  }
+
+  loadEdit(idUser: number) {
+    this.usuarioService.searchUsersId(idUser).subscribe((response) => {
+      this.Usuario = response;
+      this.Persona = response.usuPerId;
+
+      // Verificar si se ha subido una foto
+      if (response.foto) {
+        this.uploadedFiles.push(base64ToFile(response.foto, response.usuNombreUsuario));
+      }
+
+      // Limpiar la contraseña
+      this.Usuario.usuContrasena = '';
+
+      // Actualizar el nombre del rol del usuario
+      const rolEncontrado = this.listaRoles.find(
+        (rol) => rol.rolId.toString() === this.Usuario.rolId?.rolId.toString()
+      );
+      if (rolEncontrado) {
+        this.Usuario.rolId.rolNombre = rolEncontrado.rolNombre;
+      }
+    });
+  }
 
   loadFunção() {
     this.rolService.getAllRoles().subscribe((response) => {
@@ -476,6 +519,54 @@ export class CadUsuarioComponent implements OnInit {
     }
 
     return true;
+  }
+
+  editar() {
+    if (this.validarRegistro()) {
+      const rolEncontrado = this.listaRoles.find(
+        (rol) => rol.rolId.toString() === this.Usuario.rolId?.rolId.toString()
+      );
+      if (rolEncontrado) {
+        this.Usuario.rolId.rolNombre = rolEncontrado.rolNombre;
+        //agregar foto
+        this.Usuario.foto = this.base64Image;
+
+        //REGISTRAR PERSONA
+        this.personaServie
+          .update(this.Persona.perId, this.Persona)
+          .subscribe((response) => {
+            this.Usuario.usuEstado = 1;
+            this.Usuario.usuPerId = response;
+
+            //RESGISTRAR USUARIO
+            this.usuarioService
+              .update(this.Usuario.usuId, this.Usuario)
+              .subscribe((response) => {
+                Swal.fire({
+                  title: '¡Edição De Sucesso!',
+                  text: `${this.Persona.perNombre} ${this.Persona.perApellido} (${this.Usuario.rolId.rolNombre}) atualizado com sucesso`,
+                  icon: 'success',
+                  confirmButtonText: 'Confirme',
+                  showCancelButton: false,
+                }).then(() => {
+                  this.limpiarRegistro();
+                  switch (this.mode) {
+
+                    case "edit-user":
+                      this.router.navigate(['/usuarios']);
+
+                      break;
+                    default:
+                      this.router.navigate(['/nav']);
+                  }
+
+                });
+              });
+          });
+
+        // return true
+      }
+    }
   }
 
   registrar() {

@@ -15,21 +15,20 @@ export class TokenExpirationInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
                 if (error.status === 401 || error.status === 403) {
-                    let errorMessage: string;
 
                     // Verifica el tipo de solicitud y configura el mensaje en consecuencia
                     if (request.url.includes('/login')) {
 
-                        this.toastr.error('Digite correctamente', 'Contraseña incorrecta', {
+                        this.toastr.error('Digite corretamente', 'Senha incorreta', {
                             timeOut: 4000
                         });
                     }
                     else {
                         Swal.fire({
-                            title: '¡Su sesión ha expirado!',
-                            text: 'Por favor, inicie sesión nuevamente para continuar.',
+                            title: '¡Sua sessão expirou!',
+                            text: 'Faça login novamente para continuar.',
                             icon: 'warning',
-                            confirmButtonText: 'Iniciar sesión',
+                            confirmButtonText: 'Iniciar sessão',
                             showCancelButton: false, // No mostrar el botón de cancelar
                         }).then(() => {
                             // Redirige al usuario a la página de inicio de sesión.

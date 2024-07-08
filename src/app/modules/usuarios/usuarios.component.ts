@@ -47,8 +47,6 @@ export class UsuariosComponent implements OnInit {
       this.UsuarioService.allUsersData(est).subscribe((response) => {
         this.listaUsuarios = response;
       });
-    } else {
-      console.error('El valor de "est" debe ser 0 o 1.');
     }
   }
 
