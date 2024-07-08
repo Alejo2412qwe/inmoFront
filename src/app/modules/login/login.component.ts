@@ -69,13 +69,11 @@ export class LoginComponent implements OnInit {
                   confirmButtonText: 'OK',
                   showCancelButton: false,
                 }).then(() => {
-                  if (this.sessionStorage.getItem('rol') == 'Administrador' || this.sessionStorage.getItem('rol') == 'Empleado') {
-                    this.router.navigate(['/nav']);
-                  } else if (this.sessionStorage.getItem('rol') == 'Propietario') {
-                    this.router.navigate(['/alugueis']);
-                  } else {
+                  if (this.sessionStorage.getItem('rol') == 'Inquilino') {
                     this.route = '/infoAluguel/' + this.sessionStorage.getItem('userId');
                     this.router.navigate([this.route]);
+                  } else {
+                    this.router.navigate(['/nav']);
                   }
                 });
               } else {

@@ -15,6 +15,6 @@ export class NavComponent {
   rol: string = this.sessionStorage.getItem('rol') || '';
 
   route(): string {
-    return this.rol === 'Administrador' ? '/alugueis' : '/infoAluguel';
+    return this.rol == 'Administrador' ||  this.rol == 'Propietario'? '/alugueis' : '/infoAluguel';
   }
 }

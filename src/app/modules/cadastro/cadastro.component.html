@@ -1,7 +1,7 @@
 <body>
     <form>
         <div id="formulario">
-            <h1> CADASTRO DE ALUGUEL </h1>
+            <h1> {{editeMode? 'EDITAR ALUGUEL' : 'CADASTRO DE ALUGUEL'}} </h1>
         </div>
 
         <div id="tabla-formulario">
@@ -18,35 +18,35 @@
                 </option>
             </select>
 
-            <label for="sobrenome">Inquilino que está alugando (*)</label>
-            <select name="fprop" [(ngModel)]="aluguel.aluInquilino.usuId" id="tabla">
+            <label for="inq">Inquilino que está alugando (*)</label>
+            <select name="finq" [(ngModel)]="aluguel.aluInquilino.usuId" id="tabla">
                 <option [disabled]="true" value="0">Selecione Inquilino</option>
                 <option *ngFor="let inq of listInquilinos" [value]="inq.usuId">
                     {{ inq.usuPerId.perNombre+' '+inq.usuPerId.perApellido }}
                 </option>
             </select>
 
-            <label for="email">Expiração (*) </label>
-            <input name="ffatanasc" type="date" id="tabla" [(ngModel)]="aluguel.aluExpiracao">
+            <label for="expiraçao">Expiração (*) </label>
+            <input name="fexpiraçao" type="date" id="tabla" [(ngModel)]="aluguel.aluExpiracao">
 
-            <label for="email">Dia De Pagamento (*) </label>
-            <input name="ffatanasc" type="number" id="tabla" [(ngModel)]="aluguel.aluDiaPago">
+            <label for="diapagamento">Dia De Pagamento (*) </label>
+            <input name="fdiapag" type="number" id="tabla" [(ngModel)]="aluguel.aluDiaPago">
 
-            <label for="endereço">Valor do inmovel(*)</label>
+            <label for="valor">Valor do inmovel(*)</label>
             <input placeholder="Digite o valor do inmovel..." name="fvalor" type="number" id="tabla"
                 [(ngModel)]="aluguel.aluValor">
 
             <label for="fotoEntrada">Foto De Historial De Entrada (*)</label>
             <div class="upload-wrapper">
                 <input type="file" name="uploadEntrada" (change)="onFileChangeEntrada($event)" id="uploadEntrada"
-                    class="upload-box" placeholder="Upload File">
+                    class="upload-box" placeholder="Upload File" accept="image/*">
                 <button *ngIf="aluguel.aluFotoEntrada" type="button" (click)="removeEntrada()">Excluir</button>
             </div>
 
             <label for="fotoSaida">Foto De Historial De Saída (*)</label>
             <div class="upload-wrapper">
                 <input type="file" name="uploadSaida" (change)="onFileChangeSaida($event)" id="uploadSaida"
-                    class="upload-box" placeholder="Upload File">
+                    class="upload-box" placeholder="Upload File" accept="image/*">
                 <button *ngIf="aluguel.aluFotoSaida" type="button" (click)="removeSaida()">Excluir</button>
             </div>
 
@@ -58,7 +58,8 @@
             </div>
 
         </div>
-        <button name="registro" id="button" (click)="registrar()"> ¡Cadastrar! </button>
+        <button name="registro" id="button" (click)="editeMode? editar() : registrar()">{{editeMode? 'EDITAR!' :
+            'CADASTRAR!'}} </button>
     </form>
 </body>
 

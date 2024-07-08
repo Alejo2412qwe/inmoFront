@@ -10,6 +10,8 @@ import { CadUsuarioComponent } from './modules/cad-usuario/cad-usuario.component
 import { InfoaluguelComponent } from './modules/infoaluguel/infoaluguel.component';
 import { AdminpanelComponent } from './modules/adminpanel/adminpanel.component';
 import { ComprovantesComponent } from './modules/comprovantes/comprovantes.component';
+import { ContratoComponent } from './modules/contrato/contrato.component';
+import { PerfilComponent } from './modules/perfil/perfil.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +23,11 @@ const routes: Routes = [
     path: 'admin', component: AdminpanelComponent,
     /*canActivate: [AuthGuard],
     data: { expectedRoles: ['Dono'] }*/
+  },
+  {
+    path: 'contratos', component: ContratoComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador', 'Propietario'] }
   },
   {
     path: 'cadUsuarios', component: CadUsuarioComponent,
@@ -42,6 +49,16 @@ const routes: Routes = [
     component: CadastroComponent,
     canActivate: [AuthGuard],
     data: { expectedRoles: ['Administrador', 'Empleado'] }
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent
+  },
+  {
+    path: 'edit-alu/:id/:mode',
+    component: CadastroComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador', 'Custodio'] }
   },
   {
     path: 'alugueis', component: AlugueisComponent,

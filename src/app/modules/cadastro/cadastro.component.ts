@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { base64ToFile } from 'src/app/common/base64';
 import { Aluguel } from 'src/app/models/aluguel';
 import { Usuario } from 'src/app/models/usuario';
 import { AluguelService } from 'src/app/services/aluguel.service';
@@ -24,13 +25,20 @@ export class CadastroComponent implements OnInit {
     private toastr: ToastrService,
     private personaServie: PersonaService,
     private usuarioService: UsuarioService,
-    private aluguelService: AluguelService) {
+    private aluguelService: AluguelService,
+    private activatedRoute: ActivatedRoute,) {
   }
 
   ngOnInit(): void {
     this.loadProp();
     this.loadInqui();
+    this.validateMode();
   }
+
+  id: number = 0;
+  editeMode: boolean = false;
+  mode: string = ''
+  userId: number = 0
 
   timeToastr: number = 4000;
 
@@ -50,14 +58,43 @@ export class CadastroComponent implements OnInit {
 
   rol: string = this.sessionStorage.getItem('rol') || '';
 
+  validateMode() {
+    this.activatedRoute.params.subscribe((params) => {
+
+      this.mode = params['mode'];
+
+      switch (this.mode) {
+
+        case "edit-alu":
+          this.id = params['id'];
+
+          if (this.id !== undefined) {
+            this.editeMode = true;
+            this.loadEdit(this.id);
+          }
+          break;
+        default:
+          console.log("Opción no reconocida");
+      }
+
+    });
+  }
+
+  loadEdit(idAct: number) {
+    this.aluguelService.findByAluId(idAct).subscribe((response) => {
+      this.aluguel = response;
+      this.uploadedFiles.push(base64ToFile(response.aluFotoEntrada, 'uploadEntrada'))
+    });
+  }
+
   loadProp() {
-    this.usuarioService.getUsersByRol(3).subscribe((users) => {
+    this.usuarioService.getUsersByRol(3, 1).subscribe((users) => {
       this.listPropietarios = users;
     })
   }
 
   loadInqui() {
-    this.usuarioService.getUsersByRol(4).subscribe((users) => {
+    this.usuarioService.getUsersByRol(4, 1).subscribe((users) => {
       this.listInquilinos = users;
     })
   }
@@ -245,6 +282,25 @@ export class CadastroComponent implements OnInit {
     }
 
     return true;
+  }
+
+  editar() {
+    this.aluguel.aluEstado = 1;
+
+    this.aluguelService.update(this.aluguel.aluId, this.aluguel).subscribe((data) => {
+      if (data) {
+        Swal.fire({
+          title: 'Edição De Sucesso!',
+          text: `Editado Corretamente`,
+          icon: 'success',
+          confirmButtonText: 'Confirme',
+          showCancelButton: false,
+        }).then(() => {
+          this.limpiarRegistro();
+          this.router.navigate(['/alugueis']);
+        });
+      }
+    });
   }
 
   registrar() {
