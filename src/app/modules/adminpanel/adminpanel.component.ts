@@ -33,6 +33,7 @@ export class AdminpanelComponent implements OnInit {
   discountOptions: number[] = [5, 10, 15, 20, 25, 30];
 
   ngOnInit(): void {
+    this.loadInfo();
     this.showMensajeBienvendia();
     this.getCantidades();
   }

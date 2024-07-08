@@ -10,7 +10,13 @@
             <img class="profile-pic" [src]="usuario.foto || userImg">
         </p>
         <p class="name">
-            {{usuario.usuPerId.perNombre+' '+usuario.usuPerId.perApellido}}
+            Nome: {{usuario.usuPerId.perNombre+' '+usuario.usuPerId.perApellido}}
+        </p>
+        <p class="name">
+            CPF: {{usuario.usuPerId.perCedula}}
+        </p>
+        <p class="name">
+            RG: {{usuario.usuPerId.perRG}}
         </p>
     </section>
 
