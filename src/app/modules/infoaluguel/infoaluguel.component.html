@@ -38,6 +38,20 @@
                 }}
             </p>
         </div>
+        <div class="mb-6" [hidden]="comprovante.comComprovante" *ngIf="rol == 'Inquilino'">
+            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">
+                Carregar comprovante de pagamento
+            </h3>
+            <div class="btnFotoUser">
+                <label for="upload{{ comprovante.comId }}" class="file-upload-label">
+                    <input type="file" name="upload{{ comprovante.comId }}"
+                        (change)="onFileChange(comprovante.comId, $event)" [(ngModel)]="comprovante.comComprovante"
+                        id="upload{{ comprovante.comId }}" class="upload-box" placeholder="Upload File"
+                        style="display: none;" accept="image/*">
+                    <img class="imgUpload" src="assets/imgs/subir.png" width="30px" alt="">
+                </label>
+            </div>
+        </div>
         <div class="mb-6 p-6 max-w-3xl mx-auto bg-white rounded-lg shadow-lg">
             <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300 mb-4">
                 Fotos De Saída
@@ -86,21 +100,6 @@
                     </ng-template>
                 </div>
             </section>
-        </div>
-
-        <div class="mb-6" [hidden]="comprovante.comComprovante" *ngIf="rol == 'Inquilino'">
-            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">
-                Carregar comprovante de pagamento
-            </h3>
-            <div class="btnFotoUser">
-                <label for="upload{{ comprovante.comId }}" class="file-upload-label">
-                    <input type="file" name="upload{{ comprovante.comId }}"
-                        (change)="onFileChange(comprovante.comId, $event)" [(ngModel)]="comprovante.comComprovante"
-                        id="upload{{ comprovante.comId }}" class="upload-box" placeholder="Upload File"
-                        style="display: none;" accept="image/*">
-                    <img class="imgUpload" src="assets/imgs/subir.png" width="30px" alt="">
-                </label>
-            </div>
         </div>
     </div>
 </div>
