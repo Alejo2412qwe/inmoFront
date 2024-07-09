@@ -20,35 +20,41 @@ const routes: Routes = [
     path: 'nav', component: NavComponent
   },
   {
+    path: 'edit-usuario/:id/:mode',
+    component: CadUsuarioComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Administrador', 'Dono'] }
+  },
+  {
     path: 'admin', component: AdminpanelComponent,
-    /*canActivate: [AuthGuard],
-    data: { expectedRoles: ['Dono'] }*/
+    canActivate: [AuthGuard],
+    data: { expectedRoles: ['Dono'] }
   },
   {
     path: 'contratos', component: ContratoComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Propietario'] }
+    data: { expectedRoles: ['Administrador', 'Propietario', 'Dono'] }
   },
   {
     path: 'cadUsuarios', component: CadUsuarioComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador'] }
+    data: { expectedRoles: ['Administrador', 'Dono'] }
   },
   {
     path: 'comprovantes', component: ComprovantesComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador'] }
+    data: { expectedRoles: ['Administrador', 'Dono'] }
   },
   {
     path: 'usuarios', component: UsuariosComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador'] }
+    data: { expectedRoles: ['Administrador', 'Dono'] }
   },
   {
     path: 'cadastro',
     component: CadastroComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Empleado'] }
+    data: { expectedRoles: ['Administrador', 'Empleado', 'Dono'] }
   },
   {
     path: 'perfil',
@@ -58,17 +64,17 @@ const routes: Routes = [
     path: 'edit-alu/:id/:mode',
     component: CadastroComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Custodio'] }
+    data: { expectedRoles: ['Administrador', 'Custodio', 'Dono'] }
   },
   {
     path: 'alugueis', component: AlugueisComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Empleado', 'Propietario'] }
+    data: { expectedRoles: ['Administrador', 'Empleado', 'Propietario', 'Dono'] }
   },
   {
     path: 'infoAluguel/:id', component: InfoaluguelComponent,
     canActivate: [AuthGuard],
-    data: { expectedRoles: ['Administrador', 'Empleado', 'Propietario', 'Inquilino'] }
+    data: { expectedRoles: ['Administrador', 'Empleado', 'Propietario', 'Inquilino', 'Dono'] }
   },
 ];
 

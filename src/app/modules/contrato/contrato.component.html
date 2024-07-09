@@ -79,6 +79,12 @@
     </div>
 
     <div class="valor centrado">
+        <h1 for="finalidade">Finalidade (*)</h1>
+        <input placeholder="Por Exemplo = Residencial: 2 Adultos" name="fvalor" type="text" id="tabla" class="bonito-input"
+            [(ngModel)]="unidade">
+    </div>
+
+    <div class="valor centrado">
         <h1 for="estado">Tipo De Residência (*)</h1>
         <select name="festado" [(ngModel)]="tipo" id="tabla" class="bonito-select">
             <option [disabled]="true">Selecione um estado</option>

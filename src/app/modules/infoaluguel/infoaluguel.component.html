@@ -38,29 +38,57 @@
                 }}
             </p>
         </div>
-        <div class="mb-6">
-            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">
-                Fotos De Entrada
-            </h3>
-            <div class="grid grid-cols-2 gap-4 mt-2">
-                <img src="https://placehold.co/300x200" alt="Photo 1" class="rounded-lg shadow-lg" />
-                <img src="https://placehold.co/300x200" alt="Photo 2" class="rounded-lg shadow-lg" />
-                <img src="https://placehold.co/300x200" alt="Photo 3" class="rounded-lg shadow-lg" />
-                <img src="https://placehold.co/300x200" alt="Photo 4" class="rounded-lg shadow-lg" />
-            </div>
-        </div>
-        <div class="mb-6">
-            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">
+        <div class="mb-6 p-6 max-w-3xl mx-auto bg-white rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300 mb-4">
                 Fotos De Saída
             </h3>
-            <div class="grid grid-cols-2 gap-4 mt-2">
-                <img src="https://placehold.co/300x200" alt="Photo 1" class="rounded-lg shadow-lg" />
-                <img src="https://placehold.co/300x200" alt="Photo 2" class="rounded-lg shadow-lg" />
-                <img src="https://placehold.co/300x200" alt="Photo 3" class="rounded-lg shadow-lg" />
-                <img src="https://placehold.co/300x200" alt="Photo 4" class="rounded-lg shadow-lg" />
-            </div>
+            <section class="imgSection flex items-center space-x-4">
+                <div class="fotoUser">
+                    <button *ngIf="aluguel.aluFotoEntrada; else noFile"
+                        class="BtnDown bg-blue-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                        title="Descarga"
+                        (click)="downloadFile(aluguel.aluFotoEntrada, ('fotoEntrada_' + aluguel.aluEndereco))">
+                        <svg class="svgIcon w-5 h-5 inline-block mr-2" viewBox="0 0 384 512"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                            </path>
+                        </svg>
+                        <span class="icon2">Descargar</span>
+                    </button>
+                    <ng-template #noFile>
+                        <p class="text-gray-500">Não há arquivo</p>
+                    </ng-template>
+                </div>
+            </section>
         </div>
-        <div class="mb-6" [hidden]="comprovante.comComprovante">
+
+        <div class="mb-6 p-6 max-w-3xl mx-auto bg-white rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300 mb-4">
+                Fotos De Saída
+            </h3>
+            <section class="imgSection flex items-center space-x-4">
+                <div class="fotoUser">
+                    <button *ngIf="aluguel.aluFotoSaida; else noFile"
+                        class="BtnDown bg-blue-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                        title="Descarga"
+                        (click)="downloadFile(aluguel.aluFotoSaida, ('fotoEntrada_' + aluguel.aluEndereco))">
+                        <svg class="svgIcon w-5 h-5 inline-block mr-2" viewBox="0 0 384 512"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                            </path>
+                        </svg>
+                        <span class="icon2">Descargar</span>
+                    </button>
+                    <ng-template #noFile>
+                        <p class="text-gray-500">Não há arquivo</p>
+                    </ng-template>
+                </div>
+            </section>
+        </div>
+
+        <div class="mb-6" [hidden]="comprovante.comComprovante" *ngIf="rol == 'Inquilino'">
             <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">
                 Carregar comprovante de pagamento
             </h3>

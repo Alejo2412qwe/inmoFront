@@ -1,7 +1,7 @@
 <body>
     <form>
         <div id="formulario">
-            <h1> CADASTRO DE USUÁRIO </h1>
+            <h1> {{editeMode? 'EDITAR USUÁRIO' : 'CADASTRO DE USUÁRIO'}}</h1>
         </div>
 
         <div id="tabla-formulario">
@@ -77,7 +77,8 @@
             <input placeholder="Digite a senha de novo..." name="fconseha" type="password" id="tabla"
                 [(ngModel)]="confirmarPass">
         </div>
-        <button name="registro" id="button" (click)="registrar()"> ¡Cadastrar Usuário! </button>
+        <button name="registro" id="button" (click)="editeMode? editar() : registrar()">{{editeMode? 'EDITAR!' :
+            'CADASTRAR!'}} </button>
     </form>
 </body>
 
