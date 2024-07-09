@@ -48,7 +48,7 @@
                         </div>
                         <div class="btnFotoUser" [hidden]="!alugue.aluFotoEntrada">
                             <button class="BtnDown" title="Descarga"
-                                (click)="downloadImage(alugue.aluFotoEntrada || userImg, ('fotoEntrada_'+alugue.aluEndereco))">
+                                (click)="downloadFile(alugue.aluFotoEntrada || userImg, ('fotoEntrada_'+alugue.aluEndereco))">
                                 <svg class="svgIcon" viewBox="0 0 384 512" height="1em"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -67,7 +67,7 @@
                         </div>
                         <div class="btnFotoUser" [hidden]="!alugue.aluFotoSaida">
                             <button class="BtnDown" title="Descarga"
-                                (click)="downloadImage(alugue.aluFotoSaida || userImg, ('fotoSaida_'+alugue.aluEndereco))">
+                                (click)="downloadFile(alugue.aluFotoSaida || userImg, ('fotoSaida_'+alugue.aluEndereco))">
                                 <svg class="svgIcon" viewBox="0 0 384 512" height="1em"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path

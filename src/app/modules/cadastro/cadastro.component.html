@@ -39,14 +39,14 @@
             <label for="fotoEntrada">Foto De Historial De Entrada (*)</label>
             <div class="upload-wrapper">
                 <input type="file" name="uploadEntrada" (change)="onFileChangeEntrada($event)" id="uploadEntrada"
-                    class="upload-box" placeholder="Upload File" accept="image/*">
+                    class="upload-box" placeholder="Upload File" accept=".doc,.docx">
                 <button *ngIf="aluguel.aluFotoEntrada" type="button" (click)="removeEntrada()">Excluir</button>
             </div>
 
-            <label for="fotoSaida">Foto De Historial De Saída (*)</label>
+            <label for="fotoSaida">Foto De Historial De Saída</label>
             <div class="upload-wrapper">
                 <input type="file" name="uploadSaida" (change)="onFileChangeSaida($event)" id="uploadSaida"
-                    class="upload-box" placeholder="Upload File" accept="image/*">
+                    class="upload-box" placeholder="Upload File" accept=".doc,.docx">
                 <button *ngIf="aluguel.aluFotoSaida" type="button" (click)="removeSaida()">Excluir</button>
             </div>
 
