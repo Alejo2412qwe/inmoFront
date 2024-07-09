@@ -25,9 +25,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessionStorage.clear();
+    this.year = new Date().getFullYear();
   }
 
   route!: string;
+  year!: number
 
   decodeToken(token: string) {
     try {

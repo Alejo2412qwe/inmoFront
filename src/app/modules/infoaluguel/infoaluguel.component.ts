@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { decodeBase64PDF } from 'src/app/common/base64';
 import { Aluguel } from 'src/app/models/aluguel';
 import { Comprovante } from 'src/app/models/comprovante';
 import { AluguelService } from 'src/app/services/aluguel.service';
@@ -42,6 +43,10 @@ export class InfoaluguelComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.idAluguel = params['id'];
     });
+  }
+
+  downloadFile(base64Data: string, name: string) {
+    decodeBase64PDF(base64Data, name, this.toastr)
   }
 
   loadData() {

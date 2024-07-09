@@ -1,5 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
 .login-page {
     width: 360px;
     padding: 8% 0 0;
@@ -115,4 +113,11 @@
 
 .logo img {
     width: 300px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: #e82b00;
 }
