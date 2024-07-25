@@ -1,10 +1,10 @@
 export const entorno = {
+    production: true,
+    urlApi: 'https://imoveisback.com/api',
+    urlPublica: 'https://imoveisback.com/auth',
+    urlPrivada: 'https://imoveisback.com'
 
-    /*urlApi: 'https://irritating-start-production.up.railway.app/api',
-    urlPublica: 'https://irritating-start-production.up.railway.app/auth',
-    urlPrivada: 'https://irritating-start-production.up.railway.app'*/
-
-    urlApi: 'http://localhost:8080/api',
-    urlPublica: 'http://localhost:8080/auth',
-    urlPrivada: 'http://localhost:8080'
+    /*    urlApi: 'http://91.108.124.35:8080/api',
+    urlPublica: 'http://91.108.124.35:8080/auth',
+    urlPrivada: 'http://91.108.124.35:8080'*/
 };
