@@ -4,7 +4,7 @@ export const entorno = {
     urlPublica: 'https://imoveisback.com/auth',
     urlPrivada: 'https://imoveisback.com'
 
-    /*    urlApi: 'http://91.108.124.35:8080/api',
-    urlPublica: 'http://91.108.124.35:8080/auth',
-    urlPrivada: 'http://91.108.124.35:8080'*/
+    /*urlApi: 'http://localhost:8080/api',
+    urlPublica: 'http://localhost:8080/auth',
+    urlPrivada: 'http://localhost:8080'*/
 };
