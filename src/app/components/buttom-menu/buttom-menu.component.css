@@ -14,7 +14,6 @@
     height: 50px;
     border-radius: 100%;
     background: #e82b00;
-
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     -webkit-animation: come-in 0.2s forwards 0.2s;
     animation: come-in 0.2s forwards 0.2s;
@@ -25,11 +24,6 @@
     transition: all 0.3s;
 }
 
-.fab-icon-holder {
-    background: px;
-}
-
-
 .fab-icon-holder:hover {
     opacity: 0.8;
 }
@@ -38,7 +32,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     height: 100%;
     font-size: 25px;
     color: #ffffff;
@@ -46,19 +39,18 @@
     animation: come-in 0.4s forwards 0.4s;
 }
 
-ul.fab-options li:nth-child(1) .fab-icon-holder {
-    background: #e82b00;
+.whatsapp-button {
+    background: #25D366 !important;
 }
 
-ul.fab-options li:nth-child(3) .fab-icon-holder {
-    background: #e82b00;
+ul.fab-options li:nth-child(6) .fab-icon-holder {
+    background: #25D366;
 }
 
+ul.fab-options li:nth-child(3) .fab-icon-holder,
 ul.fab-options li:nth-child(4) .fab-icon-holder {
     background: #e82b00;
 }
-
-
 
 .fab {
     width: 60px;
@@ -69,24 +61,19 @@ ul.fab-options li:nth-child(4) .fab-icon-holder {
 .fab-options {
     list-style-type: none;
     margin: 0;
-
     position: absolute;
     bottom: 70px;
     right: 0;
-
     opacity: 0;
-
     transition: all 0.3s ease;
     transform: scale(0);
     transform-origin: 85% bottom;
-
 }
 
 .fab:hover+.fab-options,
 .fab-options:hover {
     opacity: 1;
     transform: scale(1);
-
 }
 
 .fab-options li {
