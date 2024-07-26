@@ -46,7 +46,7 @@
                                 (change)="onFileChange(alugue.aluId, $event)" [(ngModel)]="alugue.aluContrato"
                                 id="upload{{ alugue.aluId }}" class="upload-box" placeholder="Upload File"
                                 style="display: none;" accept=".pdf">
-                            <img src="assets/imgs/subir.png" width="30px" alt="">
+                            <i class="fas fa-upload" style="font-size: 30px;"></i>
                         </label>
                     </div>
                     <div class="btnFotoUser" [hidden]="!alugue.aluContrato">

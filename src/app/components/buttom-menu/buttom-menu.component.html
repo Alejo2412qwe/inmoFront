@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
-<!--buttom-->
+<!--button-->
 <div class="fab-container">
     <div class="fab fab-icon-holder">
         <i class="fas fa-arrow-up"></i>
@@ -30,7 +30,7 @@
             </div>
         </li>
         <li *ngIf="currentRoute == '/cadUsuarios' || currentRoute == '/cadastro' || currentRoute == '/perfil'">
-            <span class="fab-label">voltar atrás</span>
+            <span class="fab-label">Voltar atrás</span>
             <div class="fab-icon-holder">
                 <a (click)="goBack()"><i class="fas fa-arrow-left"></i></a>
             </div>
@@ -39,6 +39,14 @@
             <span class="fab-label">Meu Perfil</span>
             <div class="fab-icon-holder">
                 <a [routerLink]="['/perfil']"><i class="fas fa-user"></i></a>
+            </div>
+        </li>
+        <li>
+            <span class="fab-label">Tem alguma dúvida? Entre em contato conosco!</span>
+            <div class="fab-icon-holder whatsapp-button">
+                <a href="https://wa.me/5541999147808?text=Olá%Imóveis%Portal%CIC,%tenho%algumas%dúvidas%para%resolver!" target="_blank">
+                    <i class="fas fa-phone"></i>
+                </a>
             </div>
         </li>
         <li>
