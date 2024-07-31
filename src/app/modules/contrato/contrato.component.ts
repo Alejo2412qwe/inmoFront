@@ -34,17 +34,21 @@ export class ContratoComponent implements OnInit {
 
   valorInicial!: string;
   pagamento!: string;
+  diaPagamento!: string;
   plazo!: string;
   caucao!: string;
   cidade!: string;
   tipo!: string;
   matricula!: string;
   unidade!: string;
-  finalidade!:string;
+  finalidade!: string;
+  endereco!: string;
+  temIptu: boolean = false;
+  valorIptu!: string;
 
   tipoRes: { name: string, value: number }[] = [
     { name: 'Casa', value: 1 },
-    { name: 'Departamento', value: 2 },
+    { name: 'Apartamento', value: 2 },
     { name: 'Sobrado', value: 3 },
   ];
 
@@ -148,7 +152,8 @@ export class ContratoComponent implements OnInit {
     { name: 'Santa Tereza do Oeste', value: 97 },
     { name: 'Coronel Vivida', value: 98 },
     { name: 'Três Barras do Paraná', value: 99 },
-    { name: 'Santa Isabel do Ivaí', value: 100 }
+    { name: 'Santa Isabel do Ivaí', value: 100 },
+    { name: 'Fazenda Rio Grande', value: 101 }
   ];
 
   ngOnInit() {
@@ -351,7 +356,7 @@ export class ContratoComponent implements OnInit {
 
               const rectWidth2 = pageWidth - 22;
               doc.rect(11, 45, rectWidth2, 20);
-              doc.text("Endereço: Rua Flora Pilato  N° 79 Casa 1, CEP: 81490-600  Campo Santana de Curitiba/PR", 15, 52)
+              doc.text("Endereço: " + this.endereco, 15, 52)
 
               doc.rect(11, 65, 50, 20);
               doc.text("Finalidade:", 15, 70)
@@ -390,7 +395,13 @@ export class ContratoComponent implements OnInit {
 
               doc.rect(11, 130, 188, 20);
 
-              const text4 = 'Valor do aluguel inicial: R$ ' + this.valorInicial + ', para pagamento em dia  R$ ' + this.pagamento + ', mais despesas de consumo individual: Luz, Água e IPTU. Ficando exclusivamente por conta do LOCATÁRIO, durante toda a vigência do contrato.'
+              let text4!: string;
+              if (this.temIptu) {
+                text4 = 'Valor do aluguel inicial: R$ ' + this.valorInicial + ', para pagamento em dia  R$ ' + this.pagamento + ' + R$ ' + this.valorIptu + 'do IPTU, mais despesas de consumo individual: Luz e Água. Ficando exclusivamente por conta do LOCATÁRIO, durante toda a vigência do contrato.'
+              } else {
+                text4 = 'Valor do aluguel inicial: R$ ' + this.valorInicial + ', para pagamento em dia  R$ ' + this.pagamento + ', mais despesas de consumo individual: Luz e Água. Ficando exclusivamente por conta do LOCATÁRIO, durante toda a vigência do contrato.'
+              }
+
               const lines4 = doc.splitTextToSize(text4, maxLineWidth);
               lines4.forEach((line: any, index: any) => {
                 const textX = 14;
@@ -398,9 +409,14 @@ export class ContratoComponent implements OnInit {
                 doc.text(line, textX, textY);
               });
 
-
+              let textito;
+              if (parseInt(this.plazo) == 6) {
+                textito = 'Semestral';
+              } else if (parseInt(this.plazo) == 12) {
+                textito = 'Anual';
+              }
               doc.rect(11, 150, 50, 10);
-              doc.text("Reajuste: Semestral", 15, 157);
+              doc.text("Reajuste: " + textito, 15, 157);
 
               doc.rect(61, 150, 138, 10);
               doc.text("Índice: IGPM", 65, 157);
@@ -429,7 +445,7 @@ export class ContratoComponent implements OnInit {
                 doc.text(line, textX, textY);
               });
 
-              const text8 = 'CLÁUSULA QUARTA: Os aluguéis mensais deverão ser pagos até o dia ' + dia + ' do mês subsequente mediante pagamento junto à IMOBILIÁRIA INTERMEDIADORA, na Conta para Depósito Portal CIC assessoria imobiliária LTDA. Conta Caixa Econômica Federal Agência 4744 Conta 692-1, para transferência via PIX usar CNPJ 23.849.230/0001-25, mediante recibo de aluguel. Com o pagamento, o LOCATÁRIO deverá enviar os comprovantes de pagamento Aluguel, água, luz e despesas condominiais, ao número de telefone (41) 9 9777-5496'
+              const text8 = 'CLÁUSULA QUARTA: Os aluguéis mensais deverão ser pagos até o dia ' + this.diaPagamento + ' do mês subsequente mediante pagamento junto à IMOBILIÁRIA INTERMEDIADORA, na Conta para Depósito Portal CIC assessoria imobiliária LTDA. Conta Caixa Econômica Federal Agência 4744 Conta 692-1, para transferência via PIX usar CNPJ 23.849.230/0001-25, mediante recibo de aluguel. Com o pagamento, o LOCATÁRIO deverá enviar os comprovantes de pagamento Aluguel, água, luz e despesas condominiais, ao número de telefone (41) 9 9777-5496'
               const lines8 = doc.splitTextToSize(text8, maxLineWidth);
               lines8.forEach((line: any, index: any) => {
                 const textX = 11;

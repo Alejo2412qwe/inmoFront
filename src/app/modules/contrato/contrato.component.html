@@ -43,6 +43,18 @@
     </div>
 
     <div class="valor centrado">
+        <h1 for="endereço">Endereço do imóvel (*)</h1>
+        <input placeholder="Digite o pagamento do imóvel..." name="fvalor" type="text" id="tabla" class="bonito-input"
+            [(ngModel)]="endereco">
+    </div>
+
+    <div class="valor centrado">
+        <h1 for="endereço">Prazo Máximo de Pagamento (dia) (*)</h1>
+        <input placeholder="Digite o valor inicial do imóvel..." name="fvalor" type="number" id="tabla"
+            class="bonito-input" [(ngModel)]="diaPagamento">
+    </div>
+
+    <div class="valor centrado">
         <h1 for="endereço">Valor inicial do imóvel (*)</h1>
         <input placeholder="Digite o valor inicial do imóvel..." name="fvalor" type="number" id="tabla"
             class="bonito-input" [(ngModel)]="valorInicial">
@@ -80,8 +92,8 @@
 
     <div class="valor centrado">
         <h1 for="finalidade">Finalidade (*)</h1>
-        <input placeholder="Por Exemplo = Residencial: 2 Adultos" name="fvalor" type="text" id="tabla" class="bonito-input"
-            [(ngModel)]="finalidade">
+        <input placeholder="Por Exemplo = Residencial: 2 Adultos" name="fvalor" type="text" id="tabla"
+            class="bonito-input" [(ngModel)]="finalidade">
     </div>
 
     <div class="valor centrado">
@@ -102,6 +114,21 @@
                 {{ cid.name }}
             </option>
         </select>
+    </div>
+
+    <div class="valor centrado">
+        <label>
+            <input type="checkbox" class="ios-switch green  bigswitch" [(ngModel)]="temIptu" /> Tem IPTU?
+            <div>
+                <div></div>
+            </div>
+        </label>
+    </div>
+
+    <div class="valor centrado" *ngIf="temIptu">
+        <h1 for="endereço">Valor Do IPTU (*)</h1>
+        <input placeholder="Digite o valor..." name="fvalor" type="text" id="tabla" class="bonito-input"
+            [(ngModel)]="valorIptu">
     </div>
 
     <div class="valor centrado">
