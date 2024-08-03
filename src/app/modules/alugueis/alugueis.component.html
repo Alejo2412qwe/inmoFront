@@ -22,6 +22,7 @@
                 <th *ngIf="rol == 'Administrador'">Expiração</th>
                 <th *ngIf="rol == 'Administrador'">Dia De Pagamento</th>
                 <th>Contrato</th>
+                <th>Copia Do Contrato</th>
                 <th>Comprovante</th>
                 <th>Status De Aluguel</th>
                 <th *ngIf="rol == 'Administrador'">Ver mais</th>
@@ -41,23 +42,56 @@
                 <td *ngIf="rol == 'Administrador'">{{alugue.aluDiaPago}}</td>
                 <td>
                     <div class="btnFotoUser" [hidden]="alugue.aluContrato">
-                        <label for="upload{{ alugue.aluId }}" class="file-upload-label">
-                            <input type="file" name="upload{{ alugue.aluId }}"
-                                (change)="onFileChange(alugue.aluId, $event)" [(ngModel)]="alugue.aluContrato"
-                                id="upload{{ alugue.aluId }}" class="upload-box" placeholder="Upload File"
-                                style="display: none;" accept=".pdf">
+                        <label for="upload{{ alugue.aluId }}_1" class="file-upload-label">
+                            <input type="file" name="upload{{ alugue.aluId }}_1"
+                                (change)="onFileChange(alugue.aluId, $event, 1)" id="upload{{ alugue.aluId }}_1"
+                                class="upload-box" placeholder="Upload File" style="display: none;" accept=".pdf">
                             <i class="fas fa-upload" style="font-size: 30px;"></i>
                         </label>
                     </div>
                     <div class="btnFotoUser" [hidden]="!alugue.aluContrato">
                         <button class="BtnDown" title="Descarga"
-                            (click)="downloadFile(alugue.aluContrato || userImg, ('contrato_'+alugue.aluEndereco))">
+                            (click)="downloadFile(alugue.aluContrato || userImg, ('contrato_' + alugue.aluEndereco))">
                             <svg class="svgIcon" viewBox="0 0 384 512" height="1em" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
                                 </path>
                             </svg>
                             <span class="icon2"></span>
+                        </button>
+                    </div>
+                    <div class="btnFotoUser">
+                        <button class="BtnDown" title="Excluir Contrato" (click)="excludeContrato(alugue.aluId)"
+                            [hidden]="!alugue.aluContrato">
+                            <i class="fas fa-minus fa-1x"></i>
+                        </button>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="btnFotoUser" [hidden]="alugue.aluContratoCopia">
+                        <label for="upload{{ alugue.aluId }}_2" class="file-upload-label">
+                            <input type="file" name="upload{{ alugue.aluId }}_2"
+                                (change)="onFileChange(alugue.aluId, $event, 2)" id="upload{{ alugue.aluId }}_2"
+                                class="upload-box" placeholder="Upload File" style="display: none;" accept=".pdf">
+                            <i class="fas fa-upload" style="font-size: 30px;"></i>
+                        </label>
+                    </div>
+                    <div class="btnFotoUser" [hidden]="!alugue.aluContratoCopia">
+                        <button class="BtnDown" title="Descarga"
+                            (click)="downloadFile(alugue.aluContratoCopia || userImg, ('contrato_' + alugue.aluEndereco))">
+                            <svg class="svgIcon" viewBox="0 0 384 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                                </path>
+                            </svg>
+                            <span class="icon2"></span>
+                        </button>
+                    </div>
+                    <div class="btnFotoUser">
+                        <button class="BtnDown" title="Excluir Copia Contrato"
+                            (click)="excludeCopiaContrato(alugue.aluId)" [hidden]="!alugue.aluContratoCopia">
+                            <i class="fas fa-minus fa-1x"></i>
                         </button>
                     </div>
                 </td>

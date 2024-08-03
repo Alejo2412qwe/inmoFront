@@ -68,6 +68,56 @@ export class AlugueisComponent implements OnInit {
     });
   }
 
+  excludeCopiaContrato(id: number) {
+    Swal.fire({
+      title: `Tem certeza de que deseja exluir a copia do contrato?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sim`,
+      cancelButtonText: 'Não'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.aluguelService.exCopiaContrato(id).subscribe({
+          next: () => {
+            this.toastr.success('Excluido com successo.', 'SUCESSO');
+            this.loadData();
+          },
+          error: (error) => {
+            // Manejar errores
+          },
+          complete: () => {
+            // Manejar completado
+          }
+        });
+      }
+    });
+  }
+
+  excludeContrato(id: number) {
+    Swal.fire({
+      title: `Tem certeza de que deseja exluir o contrato?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sim`,
+      cancelButtonText: 'Não'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.aluguelService.exContrato(id).subscribe({
+          next: () => {
+            this.toastr.success('Excluido com successo.', 'SUCESSO');
+            this.loadData();
+          },
+          error: (error) => {
+            // Manejar errores
+          },
+          complete: () => {
+            // Manejar completado
+          }
+        });
+      }
+    });
+  }
+
   cambiarEstList(est: number) {
     this.estList = est
     this.loadAlugueis(this.estList)
@@ -107,7 +157,7 @@ export class AlugueisComponent implements OnInit {
       mensaje = 'ativar'
     }
     Swal.fire({
-      title: `Tem certeza de que deseja ${mensaje} o usuário?`,
+      title: `Tem certeza de que deseja ${mensaje} o aluguel?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: `Sim, ${mensaje}`,
@@ -135,15 +185,15 @@ export class AlugueisComponent implements OnInit {
     });
   }
 
-  onFileChange(id: number, event: Event) {
+  onFileChange(id: number, event: Event, numero: number) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
-      this.convertToBase64(id);
+      this.convertToBase64(id, numero);
     }
   }
 
-  convertToBase64(id: number) {
+  convertToBase64(id: number, numero: number) {
     if (!this.selectedFile) {
       console.error('No file selected.');
       return;
@@ -153,18 +203,33 @@ export class AlugueisComponent implements OnInit {
     reader.readAsDataURL(this.selectedFile);
     reader.onload = () => {
       const base64String = reader.result as string;
-      this.aluguelService.updateContrato(id, base64String).subscribe(
+      let updateObservable;
+
+      if (numero === 1) {
+        updateObservable = this.aluguelService.updateContrato(id, base64String);
+      } else if (numero === 2) {
+        updateObservable = this.aluguelService.updateCopiaContrato(id, base64String);
+      } else {
+        console.error('Invalid file type.');
+        return;
+      }
+
+      updateObservable.subscribe(
         () => {
-          this.toastr.success("Contrato enviado com sucesso.", "SUCESSO")
+          this.toastr.success(numero === 1 ? "Contrato enviado com sucesso." : "Copia Do Contrato enviada com sucesso.", "SUCESSO");
           const alugue = this.listAluguel.find(a => a.aluId === id);
           if (alugue) {
-            alugue.aluContrato = base64String;
+            if (numero === 1) {
+              alugue.aluContrato = base64String;
+            } else if (numero === 2) {
+              alugue.aluContratoCopia = base64String;
+            }
           }
           this.selectedFile = null;
           this.base64String = '';
         },
         (error) => {
-          this.toastr.error(error, 'Erro ao atualizar o comprovante de pagamento.');
+          this.toastr.error(error, numero === 1 ? 'Erro ao atualizar o contrato.' : 'Erro ao atualizar a copia do contrato.');
         }
       );
     };

@@ -12,6 +12,7 @@ export class Aluguel {
     aluFotoEntrada: string;
     aluFotoSaida: string;
     aluContrato: string;
+    aluContratoCopia: string;
     aluExpiracao: Date;
 
     constructor(
@@ -25,6 +26,7 @@ export class Aluguel {
         aluFotoEntrada?: string,
         aluFotoSaida?: string,
         aluContrato?: string,
+        aluContratoCopia?: string,
         aluExpiracao?: Date
     ) {
         this.aluId = aluId || 0;
@@ -37,6 +39,7 @@ export class Aluguel {
         this.aluFotoEntrada = aluFotoEntrada || '';
         this.aluFotoSaida = aluFotoSaida || '';
         this.aluContrato = aluContrato || '';
+        this.aluContratoCopia = aluContratoCopia || '';
         this.aluExpiracao = aluExpiracao || new Date();
     }
 }

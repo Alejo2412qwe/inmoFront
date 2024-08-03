@@ -3,6 +3,7 @@ import jsPDF from 'jspdf';
 import { ToastrService } from 'ngx-toastr';
 import { USER } from 'src/app/common/img64';
 import { Usuario } from 'src/app/models/usuario';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -14,24 +15,24 @@ export class ContratoComponent implements OnInit {
 
 
 
-  constructor(private UsuarioService: UsuarioService, private toastr: ToastrService,) { }
+  constructor(private UsuarioService: UsuarioService,
+    private toastr: ToastrService,
+    private sessionStorage: SessionStorageService,) { }
 
   page1!: number;
   page2!: number;
 
   listaUsuarios: Usuario[] = []
-  listInq: Usuario[] = [];
-  listProp: Usuario[] = []
 
   estList: number = 1;
   userImg = USER
-  searchString: string = '';
 
   isLoading: boolean = true;
 
   selectedInq!: number;
   selectedProp!: number;
 
+  searchString: string = '';
   valorInicial!: string;
   pagamento!: string;
   diaPagamento!: string;
@@ -45,6 +46,9 @@ export class ContratoComponent implements OnInit {
   endereco!: string;
   temIptu: boolean = false;
   valorIptu!: string;
+
+  rol: string = this.sessionStorage.getItem('rol') || '';
+  userId: number = this.sessionStorage.getItem('userId') || 0;
 
   tipoRes: { name: string, value: number }[] = [
     { name: 'Casa', value: 1 },
@@ -173,12 +177,14 @@ export class ContratoComponent implements OnInit {
   }
 
   loadUsers(est: number) {
-    if (est === 0 || est === 1) {
+    if (est === 0 || est === 1 && this.rol == 'Administrador') {
       this.UsuarioService.allUsersData(est).subscribe((response) => {
         this.listaUsuarios = response;
       });
-    } else {
-      console.error('El valor de "est" debe ser 0 o 1.');
+    } else if (est === 0 || est === 1 && this.rol == 'Propietario') {
+      this.UsuarioService.getUsersByRol(4, 1).subscribe((data) => {
+        this.listaUsuarios = data;
+      });
     }
   }
 
@@ -268,6 +274,10 @@ export class ContratoComponent implements OnInit {
   }
 
   criarContrato() {
+    if (this.rol == 'Propietario') {
+      this.selectedProp = this.userId;
+    }
+
     if (this.validarContrato()) {
       this.UsuarioService.searchUsersId(this.selectedInq).subscribe((inq) => {
         if (inq) {
@@ -821,11 +831,20 @@ export class ContratoComponent implements OnInit {
   }
 
   limpar() {
-    this.pagamento = '';
+    this.searchString = '';
     this.valorInicial = '';
+    this.pagamento = '';
+    this.diaPagamento = '';
     this.plazo = '';
     this.caucao = '';
     this.cidade = '';
-    this.searchString = '';
+    this.tipo = '';
+    this.matricula = '';
+    this.unidade = '';
+    this.finalidade = '';
+    this.endereco = '';
+    this.temIptu = false;
+    this.valorIptu = '';
   }
+
 }
